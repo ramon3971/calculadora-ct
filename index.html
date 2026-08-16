@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Calculadora de Posición · CT</title>
+<link rel="icon" type="image/png" sizes="512x512" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAdzUlEQVR4nO3de7SmVWEf4H0OA8xAVIbhopFxBhhRyAADGMHbklgkVpcmpV4hZllrm6XVdNmiSZR6q9GmaFiN0URrVihqg0mbNullKVQhRZagkgpFrgMMmBW1VMAZ1JkzcKZ/0AMzZ/Y55/ve6748z58uv+/b79773b/feb8zh5nAYDZu2rxn7DEApG7b1ptnxh5DDUxyhwQ8QP8UhG6YxIaEPUA6lILpmbAJCXyAfCgEKzNByxD6APlTBuJMyiJCH6BcysATTEQQ+gA1qr0MVH3xgh+AWotAdRct9AFYSk1loJoLFfwATKqGIlD8BQp+AJoquQgUe2GCH4CulFgEirsgwQ9AX0oqAsVciOAHYCglFIHZsQfQBeEPwJBKyJ2sG0wJCwBA3nJ9GpDloAU/AKnJrQhk9xWA8AcgRbnlU1YFILfJBaAuOeVUFo8rcppQAAgh/a8Ekn8CIPwByFHq+ZV0AUh98gBgOSnnWJKPJ1KeMABoIrWvBJJ7AiD8AShRavmWVAFIbXIAoEsp5VwyBSClSQGAvqSSd0kUgFQmAwCGkELujV4AUpgEABja2Pk3agEY++IBYExj5uBoBUD4A8B4eThKARD+APCEMXJx8AIg/AFgf0Pn46AFQPgDwNKGzMnBCoDwB4CVDZWXgxQA4Q8AkxsiN3svAMIfAKbXd372WgCEPwA012eO9lYAhD8AtNdXno7+p4ABgOH1UgD89A8A3ekjVzsvAMIfALrXdb52WgCEPwD0p8uc9TsAAFChzgqAn/4BoH9d5W0nBUD4A8Bwusjd1gVA+APA8Nrmr98BAIAKtSoAfvoHgPG0yWFPAACgQo0LgJ/+AWB8TfO4UQEQ/gCQjia57CsAAKjQ1AXAT/8AkJ5p89kTAACo0FQFwE//AJCuaXLaEwAAqNDEBcBP/wCQvknz2hMAAKjQRAXAT/8AkI9JctsTAACo0IoFwE//AJCflfLbEwAAqJACAAAVWrYAePwPAPlaLsc9AQCACi1ZAPz0DwD5WyrPPQEAgAopAABQoWgB8PgfAMoRy3VPAACgQgoAAFRovwLg8T8AlGdxvnsCAAAVUgAAoEL7FACP/wGgXHvnvCcAAFAhBQAAKqQAAECFHi8Avv8HgPIt5L0nAABQIQUAACqkAABAhRQAAKjQTAh+ARAAauMJAABUSAGAil33/rVjDwEYiQIAlVoIfyUA6qQAQIUWh74SAPVRAKAyS4W9EgB1UQCgIiuFvBIA9VAAoBKThrsSAHWY9TcAoHzThroSAOXzBAAK1zTMlQAomwIABWsb4koAlEsBgEJ1Fd5KAJRJAYACdR3aSgCURwGAwvQV1koAlEUBgIL0HdJKAJRDAYBCDBXOSgCUQQGAAgwdykoA5E8BgMyNFcZKAORNAYCMjR3CY38+0JwCAJlKJXxTGQcwHQUAMpRa6KY2HmBlCgBkJtWwTXVcQJwCABlJPWRTHx/wBAUAMpFLuOYyTqidAgAZyC1Ucxsv1EgBgMTlGqa5jhtqoQBAwnIP0dzHDyVTACBRpYRnKdcBpVEAIEGlhWZp1wMlUAAgMaWGZanXBblSACAhpYdk6dcHOVEAIBG1hGMt1wmpUwAgAbWFYm3XCylSAGBktYZhrdcNqVAAYES1h2Dt1w9jUgBgJMLvMeYBxqEAwAiE3r7MBwxPAYCBCbs48wLDUgBgQEJueeYHhqMAwECE22TMEwxDAYABCLXpmC/onwIAPRNmzZg36JcCAD0SYu2YP+iPAgA9EV7dMI/QDwUAeiC0umU+oXsKAHRMWPXDvEK3FADokJDql/mF7igA0BHhNAzzDN1QAKADQmlY5hvaUwCgJWE0DvMO7SgA0IIQGpf5h+YUAGhI+KTBOkAzCgA0IHTSYj1gegoATEnYpMm6wHQUAJiCkEmb9YHJKQAwIeGSB+sEk1EAYAJCJS/WC1amAMAKhEmerBssTwGAZQiRvFk/WJoCAEsQHmWwjhCnAECE0CiL9YT9KQCwiLAok3WFfSkAsBchUTbrC09QAOD/Ew51sM7wGAUAglCojfUGBQCEQaWsO7VTAKiaEKib9admCgDVcvgTgn1AvRQAquTQZ2/2AzVSAKiOw54Y+4LaKABUxSHPcuwPaqIAUA2HO5OwT6iFAkAVHOpxZ33wwbGHkCT7hRooABTPYR63EP5KQJx9Q+kUAIrmEI9bHPpKQJz9Q8kUAIrl8I5bKuyVgDj7iFIpABTJoR23UsgrAXH2EyVSACiOwzpu0nBXAuLsK0qjAFAUh3TctKGuBMTZX5REAaAYDue4pmGuBMTZZ5RCAaAIDuW4tiGuBMTZb5RAASB7DuO4rsJbCYiz78idAkDWHMJxXYe2EhBn/5EzBYBsOXzj+gprJSDOPiRXCgBZcujG9R3SSkCc/UiOFACy47CNGyqclYA4+5LcKABkxSEbN3QoKwFx9ic5UQDIhsM1bqwwVgLi7FNyoQCQBYdq3NghPPbnp8p+JQcKAMlzmMalEr6pjCM19i2pUwBImkM0LrXQTW08qbB/SZkCQLIcnnGphm2q4xqbfUyqFACS5NCMSz1kUx/fWOxnUqQAkByHZVwu4ZrLOIdmX5MaBYCkOCTjcgvV3MY7FPublCgAJMPhGJdrmOY67r7Z56RCASAJDsW43EM09/H3xX4nBQoAo3MYxpUSnqVcR9fse8amADAqh2BcaaFZ2vV0xf5nTAoAo3H4xZUalqVeV1vuA8aiADAKh15c6SFZ+vU15X5gDAoAg3PYxdUSjrVc57TcFwxNAWBQDrm42kKxtuudlPuDISkADMbhFldrGNZ63StxnzAUBYBBONTiag/B2q9/Ke4XhqAA0DuHWZzwe4x5iHPf0DcFgF45xOKE3r7MR5z7hz4pAPTG4RUn7OLMS5z7iL4oAPTCoRUn5JZnfuLcT/RBAaBzDqs44TYZ8xTnvqJrCgCdckjFCbXpmK849xddUgDojMMpTpg1Y97i3Gd0RQGgEw6lOCHWjvmLc7/RBQWA1hxGccKrG+Yxzn1HWzMbN23eM/YgyJdDKC7V0JpkvXIee41SXS/SpwDQmAM5LrUDuc06lXQtJUttnciDAkAjDuK4lA7iLteo1OsqSUprRB78DgBTcwDHpXQAd71GKa15SvOckpTWiDwoAEzFIROXUij1tUYprX1K852SlNaI9CkATMzhEpdSGPW9RintgZTmPSUprRFpUwCYiEMlLqUQGmqNUtoLKc1/SlJaI9KlALAih0lcSuEz9BqltCdSWoeUpLRGpEkBYFkOkbiUQmesNUppb6S0HilJaY1IjwLAkhwecSmFzdhrNPbn7y2ldUlJSmtEWhQAohwacUImbdYnzv1MjALAfhwWcamFSyrrlMo4FqS2TqlIbZ0YnwLAPhwScUIlL9Yrzv3N3hQAHudwiBMmebJuce5zFigAhBAcCktJNURSW6/UxrMg1fUbW6rrxbAUABwGSxAeZbCOce57FIDKOQTihEZZrGec+79uCkDF3PxxwqJM1jXOOVAvBaBSbvo4IVE26xvnPKiTAlApB2Gcg7Bs1jfOeVAnBaBibvo4IVEm6xrnHKiXAlA5N3+csCiL9Yxz/9dNAcAhsAShUQbrGOe+RwEghOAwWEqq4ZHaeqU2ngWprt/YUl0vhqUA8DiHQpwQyZN1i3Ofs0ABYB8OhzhhkhfrFef+Zm8KAPtxSMSlFiqprFMq41iQ2jqlIrV1YnwKAFEOizjhkjbrE+d+JkYBYEkOjbiUQmbsNRr78/eW0rqkJKU1Ii0KAMtyeMSlFDZjrVFKeyOl9UhJSmtEehQAVuQQiUspdIZeo5T2RErrkJKU1og0KQBMxGESl1L4DLVGKe2FlOY/JSmtEelSAJiYQyUupRDqe41S2gMpzXtKUloj0qYAMBWHS1xKYdTXGqW09inNd0pSWiPSpwAwNYdMXEqh1PUapbTmKc1zSlJaI/Iws3HT5j1jD4I8OYjjUjuI26xTSddSstTWiTwoALTiQI5L9UCeZL1yHnuNUl0v0qcA0JqDOc7B3B17LM4eow2/A0BrDqE4odUN8xjnvqMtBYBOOIzihFc75i/O/UYXFAA641CKE2LNmLc49xldUQDolMMpTphNx3zFub/okgJA5xxScUJtMuYpzn1F1xQAeuGwihNuyzM/ce4n+qAA0BuHVpyQizMvce4j+qIA0CuHV5yw25f5iHP/0CcFgN45xOKE3mPMQ5z7hr4pAAzCYRZXe/jVfv1Lcb8wBAWAwTjU4moNwVqveyXuE4aiADAoh1tcbWFY2/VOyv3BkBQABueQi6slFGu5zmm5LxiaAsAoHHZxpYdj6dfXlPuBMSgAjMahF1dqSJZ6XW25DxiLAsCoHH5xpYVladfTFfufMSkAjM4hGFdKaJZyHV2z7xmbAkASHIZxuYdn7uPvi/1OChQAkuFQjMs1RHMdd9/sc1KhAJAUh2NcbmGa23iHYn+TEgWA5Dgk43IJ1VzGOTT7mtQoACTJYRmXerimPr6x2M+kSAEgWQ7NuFRDNtVxjc0+JlUKAElzeMalFrapjScV9i8pUwBInkM0LpXQTWUcqbFvSZ0CQBYcpnFjh+/Yn58q+5UcKABkw6EaN1YIC/84+5RcKABkxeEaN3QYC/84+5OcKABkxyEbN1QoC/84+5LcKABkyWEb13c4C/84+5EcKQBky6Eb11dIC/84+5BcKQBkzeEb13VYC/84+4+cKQBkzyEc11VoC/84+47cKQAUwWEc1za8hX+c/UYJFACK4VCOaxriwj/OPqMUCgBFcTjHTRvmwj/O/qIkCgDFcUjHTRrqwj/OvqI0CgBFcljHrRTuwj/OfqJECgDFcmjHLRXywj/OPqJUCgBFc3jHLQ574R9n/1AyBYDiOcTjFkJf+MfZN5RuZuOmzXvGHgQMQdAxKeFPDTwBoBoOdSZhn1ALBYCqONxZjv1BTRQAquOQJ8a+oDYKAFVy2LM3+4EaKQBUy6FPCPYB9VIAqJrDv27Wn5opAFRPCNTJulM7BQCCMKiN9QYFAB4nFOpgneExCgDsRTiUzfrCExQAWERIlMm6wr4UAIgQFmWxnrA/BQCWIDTKYB0hTgGAZQiPvFk/WJoCACsQInmybrA8BQAmIEzyYr1gZQoATEio5ME6wWQUAJiCcEmb9YHJKQAwJSGTJusC01EAoAFhkxbrAdNTAKAhoZMG6wDNKADQgvAZl/mH5hQAaEkIjcO8QzsKAHRAGA3LfEN7CgB0RCgNwzxDNxQA6JBw6pf5he4oANAxIdUP8wrdUgCgB8KqW+YTuqcAQE+EVjfMI/RDAYAeCa92zB/0RwGAngmxZswb9EsBgAEIs+mYL+ifAgADEWqTMU8wDAUABiTclmd+YDgKAAxMyMWZFxiWAgAjEHb7Mh8wPAUARiL0HmMeYBwKAIyo9vCr/fphTAoAjKzWEKz1uiEVCgAkoLYwrO16IUUKACSillCs5TohdQoAJKT0cCz9+iAnCgAkptSQLPW6IFcKACSotLAs7XqgBAoAJKqU0CzlOqA0CgAkLPfwzH38UDIFABKXa4jmOm6ohQIAGcgtTHMbL9RIAYBM5BKquYwTaqcAQEZSD9fUxwc8QQGAzKQasqmOC4hTACBDqYVtauMBVqYAQKZSCd1UxgFMRwGAjI0dvmN/PtCcAgCZGyuEhT/kTQGAAgwdxsIf8qcAQCGGCmXhD2VQAKAgfYez8IdyKABQmL5CWvhDWRQAKFDXYS38oTwKABSqq9AW/lAmBQAK1ja8hT+USwGAwjUNceEPZVMAoALThrnwh/IpAFCJSUNd+EMdFACoyErhLvyhHgoAVGapkBf+UBcFACq0OOyFP9RHAYBKLYS+8Ic6zWzctHnP2IMAAIblCQAAVEgBAIAKrRp7AFC7tWsPC2ecdko4/riNYf0xPxvWr396OOKIdeGQQ9aENatXhzVrVoedO3eFHTseDjt2PBy279gR7tl2X7j1tjvCrbfdGe648+6wc+fOsS8DyIzfAYARnLL5pPCKl780PO+s54RjNz6j1Xs98sgj4brrbwhfuuKr4StXXRMefvjHHY0SKJkCAANZvXp1eN1rfim85rxXhg0b1vfyGbt37w5fueqa8Ol/e1nYetc9U7/+g+97dzjvl1/Rw8iGd/sdW8OrX/8Pxx4GJMtXANCzAw88MLzhtX8vvPlN54d169b2/lkvO/cl4dxzzg5fuuKq8AefuTRs23Zfr58J5EkBgB6d+OwTwkc+9J6wadOxg37u7OxsePnL/k445pinhQt+9a2DfjaQBwUAevKWN/9KePtb3xwOOOCAsYcCsB8FADq2atWq8IGLLgy/9Kq/O/ZQAJakAECHDjrowPCJSz4anv+8nx97KADL8oeAoCOzs7Phox++SPgDWVAAoCO/ceE7wrnnnD32MAAmogBAB8596dnh/NefN/YwACamAEBLRx11RHj/ey8cexgAU1EAoKUPXPSu8OQnP2nsYQBMxb8CgBaed9ZzwoteeFZn7zc/Px++dcON4X9+7evhttvuDNvu+27YsePhsGvXXDj00EPCusPXhmduOi5s2bI5vPhFzw/PWP/0zj4bqIsCAA3Nzs6GC9/5tk7e69FHHw2X/+l/Dpd9/ovhb7/3g+j/Z/v2HWH79sf+S4BX/I+rw7/+2O+H07ecHC54w6vDS895cZiZmelkLEAd/MeAoKGXnfuScPG/en/r99l61z3h3b/1oXDn1rsbv8dJJz4r/Oa73hFO23LyPv/7TTffMsqfAj5i3eHhqiv/U6PX/tN/flH46lXXdDwiYDG/AwANXfCGv9/6Pa67/obwK296W6vwDyGEW269PbzpLb8eLv74J8OuubnW4wLKpwBAAyc++4Sw5dTNrd7jxpu+E97xzveEH//4J52MaX5+Plz2hT8Nb3zTPwnf+378awSABQoANPDaV7+q1esffOhH4Z+9631h586dHY3oCbfedkd43QX/ONx08y2dvzdQDgUApjQ7OxtecvYLW73Hb3/0kvB/7v+/HY1ofw8++FB4y6+9M1x77Td6+wwgbwoATOmM008Jhx++tvHr//rb/zt8+cqrOhxR3E9/ujN86tN/3PvnAHlSAGBKLzn7Ra1e/6k/FMrA+BQAmNKZzz298Wvv3Hp3uP4bN3Q4GoBmFACYws/8zKHh+OM2Nn79X/yXL3U3GIAWFACYwpZTN4fZ2ea3zRVXXt3dYABaUABgCqdsPqnxa7duvce/zweSoQDAFI47bkPj137zhv/V4UgA2lEAYAobN6xv/Npv33hzhyMBaEcBgAnNzMyEDc84pvHrb7/jrg5HA9COAgATOvLIdWH16tWNXrt79+6w7d7vdjwigOYUAJjQusMPb/za7//g/vDoo492OBqAdhQAmNC6ww9r/Nq//d73uxsIQAcUAJhQm7//f3+P/+EfgCYUAJjQYYc9pfFrf/SjHR2OBKA9BQAmtKbhLwCGEML27QoAkBYFACZ04EEHNn7tT3fu7HAkAO0pADChAw9sXgB2797d4UgA2lMAYEIHtSgAjzzySIcjAWhPAYAJzczMjD0EgM4oADChubm5xq9dtWpVhyMBaE8BgAnNtfgeXwEAUqMAwIR2zzUvAGvWNP8nhAB9UABgQjt37Wr82ic/6UkdjgSgPQUAJvTQQz9q/NqnPOXJHY4EoD0FACb0wwcebPzao45c1+FIANpTAGBCDzzwUOPXPu1pT+1uIAAdUABgQj984IHGr33q0UeF2Vm3G5AOJxJM6P77fxh2NfxbAAcddGDYuGF9xyMCaE4BgAnNz8+H++77m8avf9YJmzocDUA7CgBM4Z577mv82lNP+bkORwLQjgIAU7j7nnsbv/a5P39ahyMBaEcBgCncdPMtjV+76fhjw9FHH9nhaACaUwBgCt++8eawZ8+eRq+dmZkJv3jOL3Q8IoBmFACYwo4dD4e77trW+PWveuUvdjcYgBYUAJjS9d/868avfdYJm/wuAJAEBQCm9NWrr2n1+rf92j/oaCQAzSkAMKVv3XBjePDBhxq//ozTTw3nnnN2Z+NZypo1q5UNYEkKAExpfn4+fOWqr7V6j4t+653hiHWHdzSi/a1de1j47KcvCS94wXN7+wwgbwoANPAf/vwvW71+7drDwu9e/KFw8MEHdzSiJ5z47BPCF7/wmXDK5pM6f2+gHAoANPCdW24PN970nVbvcdqWk8O/+d0Ph0MOWdPJmGZnZ8Mbz39N+NylnwxPe+rRnbwnUC4FABr6wp/8x9bv8YLnPTd8/tJPhU3HH9vqfU468Vnhjz/7e+HdF749HHzQQa3HBZRPAYCGvnzlVeHOrXe3fp9nbjou/NmffDa8+8K3h6cefdRUrz1ty8nh47/zwXD55z8dTt9ycuuxAPVYNfYAIFfz8/Ph45f8QfjDT17c+r1WrVoV3nj+a8L5rzsvfPNb3w7XfO26cOvtd4R77/ubsH37w2Fubi4ceughYd26w8Mzjz82bNmyObz4Rc8PG55xTAdXAtRIAYAWrv36N8LXrr0+vPAFZ3byfgcccEA468wzwllnntHJ+wEsxVcA0NIHPnxx2L59x9jDAJiKAgAt/eAH94cP/vbHxh4GwFQUAOjAFVdeHf795X8+9jAAJqYAQEd+52OfCFd+5a/GHgbARBQA6Mj8/Hz4zff+y/D167419lAAVqQAQIfm5naHt/36b4S//K9fHnsoAMtSAKBjjzzySHjv+z4SPvHJz4ZHH3107OEARCkA0JPP/NHnwvm/+taw9a57xh4KwH4UAOjRLbfeHl53wT8KH7vkU+GBBx4c7HPn5+fDf/vvV4b3/IuPDPaZQF5Wbdt688zGTZv3jD0QKNXc3O7w7z73xfDFP/uL8PrX/nJ49Xmv7O1P+O7atSt8+cqrw2f+6HPh3nu/28tnAGXwp4BhIDt37gyXXnZ5uPSyy8Opp/xceMXLXxqef+ZzwoYN61u979zc7nDt178RvnTFV8PVf3Vt+MlPftrRiIGSzYQQgicAMJ5169aG07ecEo4/fmNYf8zTw/pjfjYceeS6sGb1mrBmzeqwevXBYdeuubBjx8Nh+44dYfv2HeGebfeFW2+7I9x6653h9ju2hl1zc2NfBpAZBQAAKuSXAAGgQgoAAFRIAQCACikAAFCh2RBC2Lb15pmxBwIADGPb1ptnPAEAgAopAABQIQUAACqkAABAhR4vAH4READKt5D3ngAAQIUUAACokAIAABXapwD4PQAAKNfeOe8JAABUSAEAgArtVwB8DQAA5Vmc754AAECFFAAAqFC0APgaAADKEct1TwAAoEIKAABUaMkC4GsAAMjfUnnuCQAAVGjZAuApAADka7kc9wQAACqkAABAhVYsAL4GAID8rJTfngAAQIUmKgCeAgBAPibJbU8AAKBCExcATwEAIH2T5rUnAABQoakKgKcAAJCuaXLaEwAAqNDUBcBTAABIz7T57AkAAFSoUQHwFAAA0tEklxs/AVACAGB8TfPYVwAAUKFWBcBTAAAYT5sc9gQAACrUugB4CgAAw2ubv508AVACAGA4XeRuZ18BKAEA0L+u8tbvAABAhTotAJ4CAEB/uszZzp8AKAEA0L2u87WXrwCUAADoTh+56ncAAKBCvRUATwEAoL2+8rTXJwBKAAA012eO9v4VgBIAANPrOz8H+R0AJQAAJjdEbg72S4BKAACsbKi8HPRfASgBALC0IXNy8H8GqAQAwP6GzsdR/g6AEgAATxgjF0f7Q0BKAACMl4ej/iVAJQCAmo2Zg6P/KWAlAIAajZ1/oxeAEMafBAAYUgq5l0QBCCGNyQCAvqWSd8kUgBDSmRQA6ENKOZdUAQghrckBgK6klm9JDWaxjZs27xl7DADQRmrBvyC5JwB7S3XSAGASKedY0gUghLQnDwCWknp+JT24xXwlAEDqUg/+Bck/AdhbLpMKQJ1yyqmsCkAIeU0uAPXILZ+yGuxivhIAYGy5Bf+CLAe9mCIAwNByDf4F2X0FEJP7IgCQlxJyJ/sLWMzTAAD6UkLwLyjmQhZTBADoSknBv6C4C1pMEQCgqRKDf0GxF7aYIgDApEoO/gXFX+BiigAAS6kh+BdUc6ExygAANYX+3qq86MUUAYD61Br8C6q++BhlAKBctYf+3kzEMpQBgPwJ/TiTMiFlACAfQn9lJqghhQAgHQJ/eiasQ0oBQP+EfTf+HyY64enfdb6vAAAAAElFTkSuQmCC">
+<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAdzUlEQVR4nO3de7SmVWEf4H0OA8xAVIbhopFxBhhRyAADGMHbklgkVpcmpV4hZllrm6XVdNmiSZR6q9GmaFiN0URrVihqg0mbNullKVQhRZagkgpFrgMMmBW1VMAZ1JkzcKZ/0AMzZ/Y55/ve6748z58uv+/b79773b/feb8zh5nAYDZu2rxn7DEApG7b1ptnxh5DDUxyhwQ8QP8UhG6YxIaEPUA6lILpmbAJCXyAfCgEKzNByxD6APlTBuJMyiJCH6BcysATTEQQ+gA1qr0MVH3xgh+AWotAdRct9AFYSk1loJoLFfwATKqGIlD8BQp+AJoquQgUe2GCH4CulFgEirsgwQ9AX0oqAsVciOAHYCglFIHZsQfQBeEPwJBKyJ2sG0wJCwBA3nJ9GpDloAU/AKnJrQhk9xWA8AcgRbnlU1YFILfJBaAuOeVUFo8rcppQAAgh/a8Ekn8CIPwByFHq+ZV0AUh98gBgOSnnWJKPJ1KeMABoIrWvBJJ7AiD8AShRavmWVAFIbXIAoEsp5VwyBSClSQGAvqSSd0kUgFQmAwCGkELujV4AUpgEABja2Pk3agEY++IBYExj5uBoBUD4A8B4eThKARD+APCEMXJx8AIg/AFgf0Pn46AFQPgDwNKGzMnBCoDwB4CVDZWXgxQA4Q8AkxsiN3svAMIfAKbXd372WgCEPwA012eO9lYAhD8AtNdXno7+p4ABgOH1UgD89A8A3ekjVzsvAMIfALrXdb52WgCEPwD0p8uc9TsAAFChzgqAn/4BoH9d5W0nBUD4A8Bwusjd1gVA+APA8Nrmr98BAIAKtSoAfvoHgPG0yWFPAACgQo0LgJ/+AWB8TfO4UQEQ/gCQjia57CsAAKjQ1AXAT/8AkJ5p89kTAACo0FQFwE//AJCuaXLaEwAAqNDEBcBP/wCQvknz2hMAAKjQRAXAT/8AkI9JctsTAACo0IoFwE//AJCflfLbEwAAqJACAAAVWrYAePwPAPlaLsc9AQCACi1ZAPz0DwD5WyrPPQEAgAopAABQoWgB8PgfAMoRy3VPAACgQgoAAFRovwLg8T8AlGdxvnsCAAAVUgAAoEL7FACP/wGgXHvnvCcAAFAhBQAAKqQAAECFHi8Avv8HgPIt5L0nAABQIQUAACqkAABAhRQAAKjQTAh+ARAAauMJAABUSAGAil33/rVjDwEYiQIAlVoIfyUA6qQAQIUWh74SAPVRAKAyS4W9EgB1UQCgIiuFvBIA9VAAoBKThrsSAHWY9TcAoHzThroSAOXzBAAK1zTMlQAomwIABWsb4koAlEsBgEJ1Fd5KAJRJAYACdR3aSgCURwGAwvQV1koAlEUBgIL0HdJKAJRDAYBCDBXOSgCUQQGAAgwdykoA5E8BgMyNFcZKAORNAYCMjR3CY38+0JwCAJlKJXxTGQcwHQUAMpRa6KY2HmBlCgBkJtWwTXVcQJwCABlJPWRTHx/wBAUAMpFLuOYyTqidAgAZyC1Ucxsv1EgBgMTlGqa5jhtqoQBAwnIP0dzHDyVTACBRpYRnKdcBpVEAIEGlhWZp1wMlUAAgMaWGZanXBblSACAhpYdk6dcHOVEAIBG1hGMt1wmpUwAgAbWFYm3XCylSAGBktYZhrdcNqVAAYES1h2Dt1w9jUgBgJMLvMeYBxqEAwAiE3r7MBwxPAYCBCbs48wLDUgBgQEJueeYHhqMAwECE22TMEwxDAYABCLXpmC/onwIAPRNmzZg36JcCAD0SYu2YP+iPAgA9EV7dMI/QDwUAeiC0umU+oXsKAHRMWPXDvEK3FADokJDql/mF7igA0BHhNAzzDN1QAKADQmlY5hvaUwCgJWE0DvMO7SgA0IIQGpf5h+YUAGhI+KTBOkAzCgA0IHTSYj1gegoATEnYpMm6wHQUAJiCkEmb9YHJKQAwIeGSB+sEk1EAYAJCJS/WC1amAMAKhEmerBssTwGAZQiRvFk/WJoCAEsQHmWwjhCnAECE0CiL9YT9KQCwiLAok3WFfSkAsBchUTbrC09QAOD/Ew51sM7wGAUAglCojfUGBQCEQaWsO7VTAKiaEKib9admCgDVcvgTgn1AvRQAquTQZ2/2AzVSAKiOw54Y+4LaKABUxSHPcuwPaqIAUA2HO5OwT6iFAkAVHOpxZ33wwbGHkCT7hRooABTPYR63EP5KQJx9Q+kUAIrmEI9bHPpKQJz9Q8kUAIrl8I5bKuyVgDj7iFIpABTJoR23UsgrAXH2EyVSACiOwzpu0nBXAuLsK0qjAFAUh3TctKGuBMTZX5REAaAYDue4pmGuBMTZZ5RCAaAIDuW4tiGuBMTZb5RAASB7DuO4rsJbCYiz78idAkDWHMJxXYe2EhBn/5EzBYBsOXzj+gprJSDOPiRXCgBZcujG9R3SSkCc/UiOFACy47CNGyqclYA4+5LcKABkxSEbN3QoKwFx9ic5UQDIhsM1bqwwVgLi7FNyoQCQBYdq3NghPPbnp8p+JQcKAMlzmMalEr6pjCM19i2pUwBImkM0LrXQTW08qbB/SZkCQLIcnnGphm2q4xqbfUyqFACS5NCMSz1kUx/fWOxnUqQAkByHZVwu4ZrLOIdmX5MaBYCkOCTjcgvV3MY7FPublCgAJMPhGJdrmOY67r7Z56RCASAJDsW43EM09/H3xX4nBQoAo3MYxpUSnqVcR9fse8amADAqh2BcaaFZ2vV0xf5nTAoAo3H4xZUalqVeV1vuA8aiADAKh15c6SFZ+vU15X5gDAoAg3PYxdUSjrVc57TcFwxNAWBQDrm42kKxtuudlPuDISkADMbhFldrGNZ63StxnzAUBYBBONTiag/B2q9/Ke4XhqAA0DuHWZzwe4x5iHPf0DcFgF45xOKE3r7MR5z7hz4pAPTG4RUn7OLMS5z7iL4oAPTCoRUn5JZnfuLcT/RBAaBzDqs44TYZ8xTnvqJrCgCdckjFCbXpmK849xddUgDojMMpTpg1Y97i3Gd0RQGgEw6lOCHWjvmLc7/RBQWA1hxGccKrG+Yxzn1HWzMbN23eM/YgyJdDKC7V0JpkvXIee41SXS/SpwDQmAM5LrUDuc06lXQtJUttnciDAkAjDuK4lA7iLteo1OsqSUprRB78DgBTcwDHpXQAd71GKa15SvOckpTWiDwoAEzFIROXUij1tUYprX1K852SlNaI9CkATMzhEpdSGPW9RintgZTmPSUprRFpUwCYiEMlLqUQGmqNUtoLKc1/SlJaI9KlALAih0lcSuEz9BqltCdSWoeUpLRGpEkBYFkOkbiUQmesNUppb6S0HilJaY1IjwLAkhwecSmFzdhrNPbn7y2ldUlJSmtEWhQAohwacUImbdYnzv1MjALAfhwWcamFSyrrlMo4FqS2TqlIbZ0YnwLAPhwScUIlL9Yrzv3N3hQAHudwiBMmebJuce5zFigAhBAcCktJNURSW6/UxrMg1fUbW6rrxbAUABwGSxAeZbCOce57FIDKOQTihEZZrGec+79uCkDF3PxxwqJM1jXOOVAvBaBSbvo4IVE26xvnPKiTAlApB2Gcg7Bs1jfOeVAnBaBibvo4IVEm6xrnHKiXAlA5N3+csCiL9Yxz/9dNAcAhsAShUQbrGOe+RwEghOAwWEqq4ZHaeqU2ngWprt/YUl0vhqUA8DiHQpwQyZN1i3Ofs0ABYB8OhzhhkhfrFef+Zm8KAPtxSMSlFiqprFMq41iQ2jqlIrV1YnwKAFEOizjhkjbrE+d+JkYBYEkOjbiUQmbsNRr78/eW0rqkJKU1Ii0KAMtyeMSlFDZjrVFKeyOl9UhJSmtEehQAVuQQiUspdIZeo5T2RErrkJKU1og0KQBMxGESl1L4DLVGKe2FlOY/JSmtEelSAJiYQyUupRDqe41S2gMpzXtKUloj0qYAMBWHS1xKYdTXGqW09inNd0pSWiPSpwAwNYdMXEqh1PUapbTmKc1zSlJaI/Iws3HT5j1jD4I8OYjjUjuI26xTSddSstTWiTwoALTiQI5L9UCeZL1yHnuNUl0v0qcA0JqDOc7B3B17LM4eow2/A0BrDqE4odUN8xjnvqMtBYBOOIzihFc75i/O/UYXFAA641CKE2LNmLc49xldUQDolMMpTphNx3zFub/okgJA5xxScUJtMuYpzn1F1xQAeuGwihNuyzM/ce4n+qAA0BuHVpyQizMvce4j+qIA0CuHV5yw25f5iHP/0CcFgN45xOKE3mPMQ5z7hr4pAAzCYRZXe/jVfv1Lcb8wBAWAwTjU4moNwVqveyXuE4aiADAoh1tcbWFY2/VOyv3BkBQABueQi6slFGu5zmm5LxiaAsAoHHZxpYdj6dfXlPuBMSgAjMahF1dqSJZ6XW25DxiLAsCoHH5xpYVladfTFfufMSkAjM4hGFdKaJZyHV2z7xmbAkASHIZxuYdn7uPvi/1OChQAkuFQjMs1RHMdd9/sc1KhAJAUh2NcbmGa23iHYn+TEgWA5Dgk43IJ1VzGOTT7mtQoACTJYRmXerimPr6x2M+kSAEgWQ7NuFRDNtVxjc0+JlUKAElzeMalFrapjScV9i8pUwBInkM0LpXQTWUcqbFvSZ0CQBYcpnFjh+/Yn58q+5UcKABkw6EaN1YIC/84+5RcKABkxeEaN3QYC/84+5OcKABkxyEbN1QoC/84+5LcKABkyWEb13c4C/84+5EcKQBky6Eb11dIC/84+5BcKQBkzeEb13VYC/84+4+cKQBkzyEc11VoC/84+47cKQAUwWEc1za8hX+c/UYJFACK4VCOaxriwj/OPqMUCgBFcTjHTRvmwj/O/qIkCgDFcUjHTRrqwj/OvqI0CgBFcljHrRTuwj/OfqJECgDFcmjHLRXywj/OPqJUCgBFc3jHLQ574R9n/1AyBYDiOcTjFkJf+MfZN5RuZuOmzXvGHgQMQdAxKeFPDTwBoBoOdSZhn1ALBYCqONxZjv1BTRQAquOQJ8a+oDYKAFVy2LM3+4EaKQBUy6FPCPYB9VIAqJrDv27Wn5opAFRPCNTJulM7BQCCMKiN9QYFAB4nFOpgneExCgDsRTiUzfrCExQAWERIlMm6wr4UAIgQFmWxnrA/BQCWIDTKYB0hTgGAZQiPvFk/WJoCACsQInmybrA8BQAmIEzyYr1gZQoATEio5ME6wWQUAJiCcEmb9YHJKQAwJSGTJusC01EAoAFhkxbrAdNTAKAhoZMG6wDNKADQgvAZl/mH5hQAaEkIjcO8QzsKAHRAGA3LfEN7CgB0RCgNwzxDNxQA6JBw6pf5he4oANAxIdUP8wrdUgCgB8KqW+YTuqcAQE+EVjfMI/RDAYAeCa92zB/0RwGAngmxZswb9EsBgAEIs+mYL+ifAgADEWqTMU8wDAUABiTclmd+YDgKAAxMyMWZFxiWAgAjEHb7Mh8wPAUARiL0HmMeYBwKAIyo9vCr/fphTAoAjKzWEKz1uiEVCgAkoLYwrO16IUUKACSillCs5TohdQoAJKT0cCz9+iAnCgAkptSQLPW6IFcKACSotLAs7XqgBAoAJKqU0CzlOqA0CgAkLPfwzH38UDIFABKXa4jmOm6ohQIAGcgtTHMbL9RIAYBM5BKquYwTaqcAQEZSD9fUxwc8QQGAzKQasqmOC4hTACBDqYVtauMBVqYAQKZSCd1UxgFMRwGAjI0dvmN/PtCcAgCZGyuEhT/kTQGAAgwdxsIf8qcAQCGGCmXhD2VQAKAgfYez8IdyKABQmL5CWvhDWRQAKFDXYS38oTwKABSqq9AW/lAmBQAK1ja8hT+USwGAwjUNceEPZVMAoALThrnwh/IpAFCJSUNd+EMdFACoyErhLvyhHgoAVGapkBf+UBcFACq0OOyFP9RHAYBKLYS+8Ic6zWzctHnP2IMAAIblCQAAVEgBAIAKrRp7AFC7tWsPC2ecdko4/riNYf0xPxvWr396OOKIdeGQQ9aENatXhzVrVoedO3eFHTseDjt2PBy279gR7tl2X7j1tjvCrbfdGe648+6wc+fOsS8DyIzfAYARnLL5pPCKl780PO+s54RjNz6j1Xs98sgj4brrbwhfuuKr4StXXRMefvjHHY0SKJkCAANZvXp1eN1rfim85rxXhg0b1vfyGbt37w5fueqa8Ol/e1nYetc9U7/+g+97dzjvl1/Rw8iGd/sdW8OrX/8Pxx4GJMtXANCzAw88MLzhtX8vvPlN54d169b2/lkvO/cl4dxzzg5fuuKq8AefuTRs23Zfr58J5EkBgB6d+OwTwkc+9J6wadOxg37u7OxsePnL/k445pinhQt+9a2DfjaQBwUAevKWN/9KePtb3xwOOOCAsYcCsB8FADq2atWq8IGLLgy/9Kq/O/ZQAJakAECHDjrowPCJSz4anv+8nx97KADL8oeAoCOzs7Phox++SPgDWVAAoCO/ceE7wrnnnD32MAAmogBAB8596dnh/NefN/YwACamAEBLRx11RHj/ey8cexgAU1EAoKUPXPSu8OQnP2nsYQBMxb8CgBaed9ZzwoteeFZn7zc/Px++dcON4X9+7evhttvuDNvu+27YsePhsGvXXDj00EPCusPXhmduOi5s2bI5vPhFzw/PWP/0zj4bqIsCAA3Nzs6GC9/5tk7e69FHHw2X/+l/Dpd9/ovhb7/3g+j/Z/v2HWH79sf+S4BX/I+rw7/+2O+H07ecHC54w6vDS895cZiZmelkLEAd/MeAoKGXnfuScPG/en/r99l61z3h3b/1oXDn1rsbv8dJJz4r/Oa73hFO23LyPv/7TTffMsqfAj5i3eHhqiv/U6PX/tN/flH46lXXdDwiYDG/AwANXfCGv9/6Pa67/obwK296W6vwDyGEW269PbzpLb8eLv74J8OuubnW4wLKpwBAAyc++4Sw5dTNrd7jxpu+E97xzveEH//4J52MaX5+Plz2hT8Nb3zTPwnf+378awSABQoANPDaV7+q1esffOhH4Z+9631h586dHY3oCbfedkd43QX/ONx08y2dvzdQDgUApjQ7OxtecvYLW73Hb3/0kvB/7v+/HY1ofw8++FB4y6+9M1x77Td6+wwgbwoATOmM008Jhx++tvHr//rb/zt8+cqrOhxR3E9/ujN86tN/3PvnAHlSAGBKLzn7Ra1e/6k/FMrA+BQAmNKZzz298Wvv3Hp3uP4bN3Q4GoBmFACYws/8zKHh+OM2Nn79X/yXL3U3GIAWFACYwpZTN4fZ2ea3zRVXXt3dYABaUABgCqdsPqnxa7duvce/zweSoQDAFI47bkPj137zhv/V4UgA2lEAYAobN6xv/Npv33hzhyMBaEcBgAnNzMyEDc84pvHrb7/jrg5HA9COAgATOvLIdWH16tWNXrt79+6w7d7vdjwigOYUAJjQusMPb/za7//g/vDoo492OBqAdhQAmNC6ww9r/Nq//d73uxsIQAcUAJhQm7//f3+P/+EfgCYUAJjQYYc9pfFrf/SjHR2OBKA9BQAmtKbhLwCGEML27QoAkBYFACZ04EEHNn7tT3fu7HAkAO0pADChAw9sXgB2797d4UgA2lMAYEIHtSgAjzzySIcjAWhPAYAJzczMjD0EgM4oADChubm5xq9dtWpVhyMBaE8BgAnNtfgeXwEAUqMAwIR2zzUvAGvWNP8nhAB9UABgQjt37Wr82ic/6UkdjgSgPQUAJvTQQz9q/NqnPOXJHY4EoD0FACb0wwcebPzao45c1+FIANpTAGBCDzzwUOPXPu1pT+1uIAAdUABgQj984IHGr33q0UeF2Vm3G5AOJxJM6P77fxh2NfxbAAcddGDYuGF9xyMCaE4BgAnNz8+H++77m8avf9YJmzocDUA7CgBM4Z577mv82lNP+bkORwLQjgIAU7j7nnsbv/a5P39ahyMBaEcBgCncdPMtjV+76fhjw9FHH9nhaACaUwBgCt++8eawZ8+eRq+dmZkJv3jOL3Q8IoBmFACYwo4dD4e77trW+PWveuUvdjcYgBYUAJjS9d/868avfdYJm/wuAJAEBQCm9NWrr2n1+rf92j/oaCQAzSkAMKVv3XBjePDBhxq//ozTTw3nnnN2Z+NZypo1q5UNYEkKAExpfn4+fOWqr7V6j4t+653hiHWHdzSi/a1de1j47KcvCS94wXN7+wwgbwoANPAf/vwvW71+7drDwu9e/KFw8MEHdzSiJ5z47BPCF7/wmXDK5pM6f2+gHAoANPCdW24PN970nVbvcdqWk8O/+d0Ph0MOWdPJmGZnZ8Mbz39N+NylnwxPe+rRnbwnUC4FABr6wp/8x9bv8YLnPTd8/tJPhU3HH9vqfU468Vnhjz/7e+HdF749HHzQQa3HBZRPAYCGvnzlVeHOrXe3fp9nbjou/NmffDa8+8K3h6cefdRUrz1ty8nh47/zwXD55z8dTt9ycuuxAPVYNfYAIFfz8/Ph45f8QfjDT17c+r1WrVoV3nj+a8L5rzsvfPNb3w7XfO26cOvtd4R77/ubsH37w2Fubi4ceughYd26w8Mzjz82bNmyObz4Rc8PG55xTAdXAtRIAYAWrv36N8LXrr0+vPAFZ3byfgcccEA468wzwllnntHJ+wEsxVcA0NIHPnxx2L59x9jDAJiKAgAt/eAH94cP/vbHxh4GwFQUAOjAFVdeHf795X8+9jAAJqYAQEd+52OfCFd+5a/GHgbARBQA6Mj8/Hz4zff+y/D167419lAAVqQAQIfm5naHt/36b4S//K9fHnsoAMtSAKBjjzzySHjv+z4SPvHJz4ZHH3107OEARCkA0JPP/NHnwvm/+taw9a57xh4KwH4UAOjRLbfeHl53wT8KH7vkU+GBBx4c7HPn5+fDf/vvV4b3/IuPDPaZQF5Wbdt688zGTZv3jD0QKNXc3O7w7z73xfDFP/uL8PrX/nJ49Xmv7O1P+O7atSt8+cqrw2f+6HPh3nu/28tnAGXwp4BhIDt37gyXXnZ5uPSyy8Opp/xceMXLXxqef+ZzwoYN61u979zc7nDt178RvnTFV8PVf3Vt+MlPftrRiIGSzYQQgicAMJ5169aG07ecEo4/fmNYf8zTw/pjfjYceeS6sGb1mrBmzeqwevXBYdeuubBjx8Nh+44dYfv2HeGebfeFW2+7I9x6653h9ju2hl1zc2NfBpAZBQAAKuSXAAGgQgoAAFRIAQCACikAAFCh2RBC2Lb15pmxBwIADGPb1ptnPAEAgAopAABQIQUAACqkAABAhR4vAH4READKt5D3ngAAQIUUAACokAIAABXapwD4PQAAKNfeOe8JAABUSAEAgArtVwB8DQAA5Vmc754AAECFFAAAqFC0APgaAADKEct1TwAAoEIKAABUaMkC4GsAAMjfUnnuCQAAVGjZAuApAADka7kc9wQAACqkAABAhVYsAL4GAID8rJTfngAAQIUmKgCeAgBAPibJbU8AAKBCExcATwEAIH2T5rUnAABQoakKgKcAAJCuaXLaEwAAqNDUBcBTAABIz7T57AkAAFSoUQHwFAAA0tEklxs/AVACAGB8TfPYVwAAUKFWBcBTAAAYT5sc9gQAACrUugB4CgAAw2ubv508AVACAGA4XeRuZ18BKAEA0L+u8tbvAABAhTotAJ4CAEB/uszZzp8AKAEA0L2u87WXrwCUAADoTh+56ncAAKBCvRUATwEAoL2+8rTXJwBKAAA012eO9v4VgBIAANPrOz8H+R0AJQAAJjdEbg72S4BKAACsbKi8HPRfASgBALC0IXNy8H8GqAQAwP6GzsdR/g6AEgAATxgjF0f7Q0BKAACMl4ej/iVAJQCAmo2Zg6P/KWAlAIAajZ1/oxeAEMafBAAYUgq5l0QBCCGNyQCAvqWSd8kUgBDSmRQA6ENKOZdUAQghrckBgK6klm9JDWaxjZs27xl7DADQRmrBvyC5JwB7S3XSAGASKedY0gUghLQnDwCWknp+JT24xXwlAEDqUg/+Bck/AdhbLpMKQJ1yyqmsCkAIeU0uAPXILZ+yGuxivhIAYGy5Bf+CLAe9mCIAwNByDf4F2X0FEJP7IgCQlxJyJ/sLWMzTAAD6UkLwLyjmQhZTBADoSknBv6C4C1pMEQCgqRKDf0GxF7aYIgDApEoO/gXFX+BiigAAS6kh+BdUc6ExygAANYX+3qq86MUUAYD61Br8C6q++BhlAKBctYf+3kzEMpQBgPwJ/TiTMiFlACAfQn9lJqghhQAgHQJ/eiasQ0oBQP+EfTf+HyY64enfdb6vAAAAAElFTkSuQmCC">
+<meta name="theme-color" content="#20242C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Calculadora CT">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Calculadora CT">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171A20;
+    --graphite:#20242C;
+    --graphite-2:#2B303B;
+    --paper:#F3F2ED;
+    --card:#FFFFFF;
+    --line:#DFDCD2;
+    --amber:#E8A33D;
+    --amber-dark:#C6821F;
+    --amber-ink:#5B3B0A;
+    --teal:#2E6E71;
+    --teal-light:#E4EFEE;
+    --red:#B3452E;
+    --purple:#7A3FA3;
+    --purple-ink:#5C2E80;
+    --muted:#7A7E86;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',system-ui,sans-serif;
+    font-size:15px;
+    line-height:1.4;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:40px;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  /* ---- Header / tabs ---- */
+  header{
+    background:var(--graphite);
+    color:#fff;
+    padding:18px 18px 0 18px;
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  .brand{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  .brand .mark{
+    width:10px;height:10px;border-radius:2px;
+    background:var(--amber);
+    transform:rotate(45deg);
+    flex:none;
+  }
+  .brand h1{
+    font-size:15px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    font-weight:600;
+    margin:0;
+  }
+  .brand span{
+    color:#8B909C;
+    font-size:12px;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .tabs{
+    display:flex;
+    gap:4px;
+  }
+  .tab{
+    flex:1;
+    text-align:center;
+    padding:11px 3px;
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:0.01em;
+    color:#9AA0AB;
+    background:transparent;
+    border:none;
+    border-bottom:3px solid transparent;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .tab.active{
+    color:#fff;
+    border-bottom-color:var(--amber);
+  }
+
+  main{padding:16px 14px 0 14px; max-width:640px; margin:0 auto;}
+  .view{display:none;}
+  .view.active{display:block;}
+
+  /* ---- Cards ---- */
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:16px;
+    margin-bottom:14px;
+  }
+  .card h2{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--muted);
+    margin:0 0 12px 0;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  /* ---- Inputs ---- */
+  label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    color:#4A4D54;
+    margin-bottom:5px;
+  }
+  .field{margin-bottom:12px;}
+  .field:last-child{margin-bottom:0;}
+  select, input[type=number], input[type=text]{
+    width:100%;
+    padding:11px 12px;
+    border-radius:9px;
+    border:1.5px solid #F0C878;
+    background:#FFF9EC;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:15px;
+    font-weight:600;
+    color:var(--amber-ink);
+    appearance:none;
+    -webkit-appearance:none;
+  }
+  select:focus, input:focus{
+    outline:none;
+    border-color:var(--amber-dark);
+    background:#FFF3DC;
+  }
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .hint{font-size:11.5px; color:var(--muted); margin-top:4px;}
+
+  button.primary{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:var(--graphite);
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:0.03em;
+    font-family:inherit;
+    cursor:pointer;
+    margin-top:4px;
+  }
+  button.primary:active{background:var(--graphite-2);}
+
+  /* ---- Results ---- */
+  .lookup-banner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:var(--teal-light);
+    border:1px solid #C7DEDC;
+    border-radius:10px;
+    padding:10px 12px;
+    margin-bottom:14px;
+    font-size:12.5px;
+  }
+  .lookup-banner .id{font-weight:700; color:var(--teal); font-family:'IBM Plex Mono',monospace;}
+  .lookup-banner .date{color:var(--muted); font-family:'IBM Plex Mono',monospace;}
+
+  table.results{
+    width:100%;
+    border-collapse:collapse;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  table.results th{
+    text-align:right;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--muted);
+    font-weight:600;
+    padding:6px 4px;
+    border-bottom:1.5px solid var(--ink);
+  }
+  table.results th:first-child{text-align:left;}
+  table.results td{
+    padding:9px 4px;
+    text-align:right;
+    font-size:14.5px;
+    font-weight:600;
+    border-bottom:1px solid var(--line);
+  }
+  table.results td:first-child{
+    text-align:left;
+    font-family:'IBM Plex Sans',sans-serif;
+    font-weight:500;
+    font-size:12.5px;
+    color:#3B3E44;
+  }
+  table.results tr.subgroup td:first-child{
+    padding-top:16px;
+    color:var(--muted);
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    font-weight:700;
+    border-bottom:none;
+  }
+  table.results td.new{color:var(--amber-dark);}
+  table.results td.resina{color:var(--purple);}
+  table.results tr.resina-row td:first-child{
+    font-weight:600;
+    color:var(--purple-ink);
+  }
+  .resina-note{
+    font-size:11px;
+    color:var(--purple);
+    margin:2px 0 10px 0;
+  }
+
+  .empty-state{
+    text-align:center;
+    padding:30px 14px;
+    color:var(--muted);
+    font-size:13.5px;
+  }
+  .empty-state .glyph{font-size:28px; margin-bottom:8px;}
+
+  details.detail{margin-top:14px;}
+  details.detail summary{
+    font-size:12px;
+    color:var(--teal);
+    font-weight:600;
+    cursor:pointer;
+    list-style:none;
+  }
+  details.detail summary::-webkit-details-marker{display:none;}
+  details.detail summary:before{content:"▸ ";}
+  details.detail[open] summary:before{content:"▾ ";}
+  .detail-grid{
+    margin-top:10px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+  }
+  .detail-grid div{
+    display:flex;
+    justify-content:space-between;
+    padding:5px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .detail-grid span:last-child{font-weight:600;}
+
+  /* ---- Historial ---- */
+  .hist-controls{
+    display:flex;
+    gap:8px;
+    margin-bottom:12px;
+  }
+  .hist-controls select, .hist-controls input{
+    background:var(--card);
+    border:1.5px solid var(--line);
+    color:var(--ink);
+    font-weight:500;
+  }
+  .equipo-group{
+    margin-bottom:16px;
+  }
+  .equipo-group h3{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    font-weight:700;
+    color:var(--ink);
+    background:#EAE7DC;
+    padding:6px 10px;
+    border-radius:6px;
+    margin:0 0 8px 0;
+    display:inline-block;
+  }
+  .mold-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:12px 14px;
+    margin-bottom:8px;
+  }
+  .mold-card .top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:8px;
+  }
+  .mold-card .molde-name{
+    font-size:13px;
+    font-weight:600;
+  }
+  .mold-card .fecha{
+    font-size:10.5px;
+    color:var(--muted);
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .mold-card .empty-row{
+    font-size:12.5px;
+    color:var(--muted);
+    font-style:italic;
+  }
+  .mini-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+  }
+  .mini-grid div{text-align:center;}
+  .mini-grid .k{
+    color:var(--muted);
+    font-size:9.5px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    margin-bottom:2px;
+  }
+  .mini-grid .v{font-weight:600;}
+  .edit-btn{
+    border:none;
+    background:none;
+    color:var(--teal);
+    font-size:11.5px;
+    font-weight:700;
+    padding:4px 6px;
+    cursor:pointer;
+    font-family:inherit;
+  }
+
+  .edit-form{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed var(--line);
+  }
+  .edit-form .row2{margin-bottom:8px;}
+  .edit-form label{font-size:10.5px;}
+  .edit-form input{
+    padding:8px 9px;
+    font-size:13.5px;
+    background:#FFF9EC;
+    border-color:#F0C878;
+    color:var(--amber-ink);
+  }
+  .edit-form .three{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:8px;}
+  .edit-actions{display:flex; gap:8px; margin-top:10px;}
+  .edit-actions button{
+    flex:1;
+    padding:9px;
+    border-radius:8px;
+    font-size:12.5px;
+    font-weight:600;
+    border:none;
+    font-family:inherit;
+    cursor:pointer;
+  }
+  .edit-actions .save{background:var(--graphite); color:#fff;}
+  .edit-actions .cancel{background:#EDEBE3; color:var(--ink);}
+
+  .reset-bar{
+    text-align:center;
+    padding:14px 0 4px 0;
+  }
+  .reset-bar button{
+    background:none;
+    border:none;
+    color:var(--red);
+    font-size:12px;
+    font-weight:600;
+    text-decoration:underline;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .toast{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--graphite);
+    color:#fff;
+    padding:10px 18px;
+    border-radius:20px;
+    font-size:12.5px;
+    font-weight:600;
+    box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.25s ease, transform 0.25s ease;
+    z-index:100;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(-6px);}
+
+  .status-line{
+    font-size:11px;
+    color:var(--muted);
+    text-align:center;
+    margin-top:6px;
+  }
+
+  /* ---- Eyelit / Recetario ---- */
+  .part-number{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--teal);
+    font-weight:700;
+    margin-bottom:2px;
+  }
+  table.results tr.subgroup td{border-bottom:none;}
+  table.results tr.subgroup td:first-child{
+    padding-top:16px;
+    color:var(--muted);
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    font-weight:700;
+    border-bottom:none;
+  }
+  table.results td.unit{
+    text-align:left;
+    font-size:10.5px;
+    color:var(--muted);
+    font-weight:500;
+    padding-left:2px;
+    width:34px;
+  }
+
+  .search-box{
+    width:100%;
+    padding:11px 12px;
+    border-radius:9px;
+    border:1.5px solid var(--line);
+    background:var(--card);
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:14px;
+    color:var(--ink);
+  }
+  .search-box:focus{outline:none; border-color:var(--teal);}
+
+  .recipe-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:12px 14px;
+    margin-bottom:8px;
+  }
+  .recipe-card .top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:8px;
+    margin-bottom:8px;
+  }
+  .recipe-card .r-name{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    font-weight:700;
+    color:var(--ink);
+    word-break:break-word;
+  }
+  .recipe-card .r-actions{
+    display:flex;
+    gap:6px;
+    flex:none;
+  }
+  .recipe-card .r-actions button{
+    border:none;
+    background:none;
+    font-size:11px;
+    font-weight:700;
+    padding:4px 6px;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .recipe-card .r-actions .edit-btn{color:var(--teal);}
+  .recipe-card .r-actions .del-btn{color:var(--red);}
+
+  .rform-section{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed var(--line);
+  }
+  .rform-section h4{
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--muted);
+    margin:0 0 8px 0;
+    font-weight:700;
+  }
+  .rform-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+  .rform-grid .field{margin-bottom:0;}
+  .rform-grid label{font-size:10px;}
+  .rform-grid input{
+    padding:8px 9px;
+    font-size:13px;
+    background:#FFF9EC;
+    border-color:#F0C878;
+    color:var(--amber-ink);
+  }
+  .rform-grid input[type=text]{font-family:'IBM Plex Sans',sans-serif; font-weight:500; color:var(--ink);}
+
+  .add-recipe-card{
+    display:none;
+  }
+  .add-recipe-card.open{display:block;}
+
+  .empty-hint{
+    text-align:center;
+    padding:24px 14px;
+    color:var(--muted);
+    font-size:13px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="mark"></div>
+    <h1>Calculadora de Posición</h1>
+    <span>CT · Towa</span>
+  </div>
+  <div class="tabs">
+    <button class="tab active" data-view="calc-view">Posición</button>
+    <button class="tab" data-view="hist-view">Historial</button>
+    <button class="tab" data-view="eyelit-view">Eyelit</button>
+    <button class="tab" data-view="recetario-view">Recetario</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===================== CALCULADORA ===================== -->
+  <section id="calc-view" class="view active">
+
+    <div class="card">
+      <h2>Datos a utilizar</h2>
+      <div class="field">
+        <label for="in-equipo">Equipo</label>
+        <select id="in-equipo"></select>
+      </div>
+      <div class="field">
+        <label for="in-molde">Mold Type</label>
+        <select id="in-molde"></select>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="in-pcb">PCB (mm)</label>
+          <input type="number" step="0.01" id="in-pcb" value="0.24">
+        </div>
+        <div class="field">
+          <label for="in-mold">Mold Thickness (mm)</label>
+          <input type="number" step="0.01" id="in-mold" value="0.37">
+        </div>
+      </div>
+      <button class="primary" id="btn-calc">Calcular nueva posición</button>
+    </div>
+
+    <div class="card" id="result-card">
+      <h2>Resultado</h2>
+      <div id="result-body"></div>
+    </div>
+
+  </section>
+
+  <!-- ===================== HISTORIAL ===================== -->
+  <section id="hist-view" class="view">
+    <div class="card" style="padding:12px 14px;">
+      <div class="hist-controls">
+        <select id="hist-filter-equipo" style="flex:1;"></select>
+        <select id="hist-filter-molde" style="flex:1;">
+          <option value="">Todos los moldes</option>
+        </select>
+      </div>
+      <div class="status-line" id="hist-count"></div>
+    </div>
+
+    <div id="hist-list"></div>
+
+    <div class="card" style="padding:14px;">
+      <h2>Respaldo</h2>
+      <div class="row2">
+        <button class="primary" id="btn-export" style="background:var(--teal); margin-top:0;">Exportar copia (.json)</button>
+        <button class="primary" id="btn-import" style="background:#4A4D54; margin-top:0;">Importar copia</button>
+      </div>
+      <input type="file" id="file-import" accept="application/json" style="display:none;">
+      <p class="hint" style="margin-top:8px;">Guarda una copia de tu historial de vez en cuando por si cambias de teléfono o borras el navegador — los datos viven solo en este dispositivo.</p>
+    </div>
+
+    <div class="reset-bar">
+      <button id="btn-reset">Restaurar datos originales de fábrica</button>
+    </div>
+  </section>
+
+  <!-- ===================== EYELIT MXF-3010 ===================== -->
+  <section id="eyelit-view" class="view">
+    <div class="card">
+      <h2>Receta Compression</h2>
+      <div class="field">
+        <label for="in-receta">Nombre de la receta</label>
+        <input type="text" id="in-receta" list="receta-datalist" placeholder="Ej. SKY66072-11 @60 42L" autocomplete="off">
+        <datalist id="receta-datalist"></datalist>
+      </div>
+      <button class="primary" id="btn-eyelit-buscar">Buscar receta</button>
+    </div>
+
+    <div class="card" id="eyelit-result-card">
+      <h2>MXF-3010 Eyelit Rev.8</h2>
+      <div id="eyelit-result-body"></div>
+    </div>
+  </section>
+
+  <!-- ===================== RECETARIO COMPRESSION ===================== -->
+  <section id="recetario-view" class="view">
+    <div class="card" style="padding:12px 14px;">
+      <input type="text" class="search-box" id="recetario-search" placeholder="Buscar receta por nombre…">
+      <div class="status-line" id="recetario-count"></div>
+    </div>
+
+    <div class="card" style="padding:14px;">
+      <button class="primary" id="btn-add-recipe" style="background:var(--teal);">+ Agregar nueva receta</button>
+      <div class="add-recipe-card" id="add-recipe-card"></div>
+    </div>
+
+    <div id="recetario-list"></div>
+
+    <div class="card" style="padding:14px;">
+      <h2>Respaldo</h2>
+      <div class="row2">
+        <button class="primary" id="btn-recetario-export" style="background:var(--teal); margin-top:0;">Exportar copia (.json)</button>
+        <button class="primary" id="btn-recetario-import" style="background:#4A4D54; margin-top:0;">Importar copia</button>
+      </div>
+      <input type="file" id="recetario-file-import" accept="application/json" style="display:none;">
+      <p class="hint" style="margin-top:8px;">Guarda una copia del recetario de vez en cuando por si cambias de teléfono o borras el navegador.</p>
+    </div>
+
+    <div class="reset-bar">
+      <button id="btn-recetario-reset">Restaurar recetario original de fábrica</button>
+    </div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ======================================================================
+   SEED DATA — extraído de Calcucadora_CT.xlsx, hoja "Historial de Posiciones"
+   ====================================================================== */
+let SEED_DATA = [];
+const STORAGE_KEY = "historial-posiciones-v1";
+
+/* ======================================================================
+   RECETARIO COMPRESSION — seed extraído de Recetario_PDF_Compression.xlsx
+   ====================================================================== */
+let RECETARIO_SEED = [];
+const RECETARIO_STORAGE_KEY = "recetario-compression-v1";
+let RDATA = [];
+
+const FIELD_SECTIONS = [
+  { title:"Frame", fields:[
+    ["frameSizeZ","Frame Size Z","mm"],
+    ["unitCountX","Unit Count X",""],
+    ["unitCountY","Unit Count Y",""],
+    ["packageSizeZ","Package Size Z","mm"],
+    ["unitSizeX","Unit Size X","mm"],
+    ["unitSizeY","Unit Size Y","mm"],
+    ["unitPitchX","Unit Pitch X","mm"],
+    ["unitPitchY","Unit Pitch Y","mm"],
+    ["unit1stOffsetX","Unit 1st Offset X","mm"],
+    ["unit1stOffsetY","Unit 1st Offset Y","mm"],
+    ["visionDetectionChipCount","Vision Detection Chip Count",""],
+    ["visionNonDetectChipVolume","Vision Non-Detect Chip Volume","mm³"],
+  ]},
+  { title:"Chip 1 / 2 / 3", fields:[
+    ["chip1SizeX","Chip1 Size X","mm"],["chip1SizeY","Chip1 Size Y","mm"],["chip1SizeZ","Chip1 Size Z","mm"],
+    ["chip2SizeX","Chip2 Size X","mm"],["chip2SizeY","Chip2 Size Y","mm"],["chip2SizeZ","Chip2 Size Z","mm"],
+    ["chip3SizeX","Chip3 Size X","mm"],["chip3SizeY","Chip3 Size Y","mm"],["chip3SizeZ","Chip3 Size Z","mm"],
+  ]},
+  { title:"Resina", fields:[
+    ["sprinkleResinSpeed","Sprinkle Resin Speed","sec"],
+    ["gramosResinaBuena","Gramos Resina Buena","g"],
+    ["densityOfResin","Density of Resin",""],
+    ["dummy","Dummy (Resin Amount)","g"],
+  ]},
+  { title:"Molde / Proceso", fields:[
+    ["cavityThickness","Cavity Thickness","mm"],
+    ["strokeMovingCavityBlock","Stroke Moving Cavity Block","mm"],
+    ["fmPosWaitTime","FM Pos. Wait Time","sec"],
+    ["moldingPressure1","Molding Pressure 1","ton"],
+    ["posPreHeat","[Pos.] Pre-Heat","mm"],
+    ["posFmStart","[Pos.] FM Start","mm"],
+    ["moldingSpeedShift12","Molding Speed Shift 1-2","mm"],
+    ["compressionTime","Compression Time","sec"],
+  ]},
+  { title:"Otros", fields:[
+    ["sort","Sort / Vision Program No.",""],
+    ["comentario","Comentario","", "text"],
+  ]},
+];
+const ALL_FIELD_KEYS = FIELD_SECTIONS.flatMap(s=>s.fields.map(f=>f[0]));
+
+/* ---------------------------------------------------------------------
+   Carga de archivos externos (historial.json / recetario.json)
+   --------------------------------------------------------------------- */
+async function fetchJSON(path){
+  try{
+    const res = await fetch(path, {cache:"no-store"});
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    return await res.json();
+  }catch(e){
+    console.warn("No se pudo cargar " + path, e);
+    return null;
+  }
+}
+
+/* Fusión aditiva: agrega registros nuevos del archivo fuente sin tocar
+   los que el usuario ya tiene guardados/editados localmente. */
+function mergeAdditive(localArr, sourceArr, keyFn){
+  if(!sourceArr) return {merged: localArr, added: 0};
+  const localKeys = new Set(localArr.map(keyFn));
+  const additions = sourceArr.filter(r => !localKeys.has(keyFn(r)));
+  return {merged: localArr.concat(additions), added: additions.length};
+}
+
+async function loadRecetario(){
+  const fetched = await fetchJSON("./recetario.json");
+  if(fetched) RECETARIO_SEED = fetched;
+
+  let local = [];
+  try{
+    const raw = localStorage.getItem(RECETARIO_STORAGE_KEY);
+    if(raw) local = JSON.parse(raw);
+  }catch(e){ /* vacío */ }
+
+  if(local.length === 0){
+    RDATA = fetched ? JSON.parse(JSON.stringify(fetched)) : [];
+    await persistRecetario();
+  }else{
+    const {merged, added} = mergeAdditive(local, fetched, r => r.receta);
+    RDATA = merged;
+    if(added > 0){
+      await persistRecetario();
+      showToast(`${added} receta(s) nueva(s) agregada(s) desde recetario.json`);
+    }
+  }
+}
+async function persistRecetario(){
+  try{
+    localStorage.setItem(RECETARIO_STORAGE_KEY, JSON.stringify(RDATA));
+  }catch(e){
+    console.error("No se pudo guardar recetario", e);
+    showToast("No se pudo guardar el recetario");
+  }
+}
+function findReceta(name){
+  return RDATA.find(r=>r.receta === name);
+}
+
+let DATA = [];
+
+/* ---------------------------------------------------------------------
+   Persistence
+   --------------------------------------------------------------------- */
+async function loadData(){
+  const fetched = await fetchJSON("./historial.json");
+  if(fetched) SEED_DATA = fetched;
+
+  let local = [];
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) local = JSON.parse(raw);
+  }catch(e){ /* localStorage no disponible o vacío */ }
+
+  if(local.length === 0){
+    DATA = fetched ? JSON.parse(JSON.stringify(fetched)) : [];
+    await persist();
+  }else{
+    const {merged, added} = mergeAdditive(local, fetched, r => r.molde + "|" + r.equipo);
+    DATA = merged;
+    if(added > 0){
+      await persist();
+      showToast(`${added} registro(s) nuevo(s) agregado(s) desde historial.json`);
+    }
+  }
+}
+
+async function persist(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
+  }catch(e){
+    console.error("No se pudo guardar", e);
+    showToast("No se pudo guardar el cambio (memoria del navegador llena o bloqueada)");
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Helpers
+   --------------------------------------------------------------------- */
+function findRecord(molde, equipo){
+  return DATA.find(r => r.molde === molde && r.equipo === equipo);
+}
+function fmt(n, dec){
+  if(n === null || n === undefined || n === "" || isNaN(n)) return "—";
+  return Number(n).toFixed(dec === undefined ? 3 : dec);
+}
+function fmtDate(iso){
+  if(!iso) return "sin fecha";
+  const [y,m,d] = iso.split("-");
+  return `${d}/${m}/${y}`;
+}
+function todayISO(){
+  const d = new Date();
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+function uniqueEquipos(){
+  const set = [...new Set(DATA.map(r=>r.equipo))];
+  set.sort((a,b)=> a.localeCompare(b, undefined, {numeric:true}));
+  return set;
+}
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=> t.classList.remove("show"), 2200);
+}
+
+/* ---------------------------------------------------------------------
+   Tabs
+   --------------------------------------------------------------------- */
+document.querySelectorAll(".tab").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.view).classList.add("active");
+    if(btn.dataset.view === "hist-view") renderHistorial();
+    if(btn.dataset.view === "recetario-view") renderRecetario();
+  });
+});
+
+/* ---------------------------------------------------------------------
+   Calculadora — populate selects
+   --------------------------------------------------------------------- */
+function populateCalcSelects(){
+  const equipoSel = document.getElementById("in-equipo");
+  equipoSel.innerHTML = uniqueEquipos().map(e=>`<option value="${e}">${e}</option>`).join("");
+  const moldeSel = document.getElementById("in-molde");
+  moldeSel.innerHTML = MOLD_TYPES.map(m=>`<option value="${m}">${m}</option>`).join("");
+
+  // Preselect a combo that actually has data, if possible
+  const withData = DATA.find(r=>r.pcb!==null && r.hf1!==null);
+  if(withData){
+    equipoSel.value = withData.equipo;
+    moldeSel.value = withData.molde;
+    document.getElementById("in-pcb").value = withData.pcb;
+    document.getElementById("in-mold").value = withData.mold;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Calculation — replica de las fórmulas de "Calculadora de Pos."
+   --------------------------------------------------------------------- */
+function calcularPosicion(){
+  const equipo = document.getElementById("in-equipo").value;
+  const molde  = document.getElementById("in-molde").value;
+  const pcbIn  = parseFloat(document.getElementById("in-pcb").value);
+  const moldIn = parseFloat(document.getElementById("in-mold").value);
+
+  const rec = findRecord(molde, equipo);
+  const body = document.getElementById("result-body");
+
+  if(!rec){
+    body.innerHTML = `<div class="empty-state"><div class="glyph">⚠</div>No hay historial guardado para <strong>${molde} · ${equipo}</strong>.<br>Agrégalo primero en la pestaña Historial.</div>`;
+    return;
+  }
+  if(rec.pcb===null || rec.mold===null || rec.hf1===null){
+    body.innerHTML = `<div class="empty-state"><div class="glyph">⚠</div>El historial de <strong>${molde} · ${equipo}</strong> está incompleto.<br>Complétalo en la pestaña Historial para poder calcular.</div>`;
+    return;
+  }
+  if(isNaN(pcbIn) || isNaN(moldIn)){
+    body.innerHTML = `<div class="empty-state">Ingresa PCB y Mold Thickness válidos.</div>`;
+    return;
+  }
+
+  // Diferencias base
+  const diffPCB   = rec.pcb - pcbIn;              // U7
+  const totalOld  = rec.pcb + rec.mold;           // S9
+  const totalNew  = pcbIn + moldIn;               // T9
+  const diffTotal = totalOld - totalNew;          // U9
+
+  const hfs = ["hf1","hf2","hf3"];
+  const preheatOld  = {}, preheatNew = {};
+  const fmOld = {}, fmNew = {};
+  const s12Old = {}, s12New = {};
+  const s23Old = {}, s23New = {};
+  const s34New = {}, s45New = {};
+
+  hfs.forEach((hf,idx)=>{
+    const oldPre = rec[hf];
+    if(oldPre===null){
+      preheatOld[hf]=preheatNew[hf]=fmOld[hf]=fmNew[hf]=s12Old[hf]=s12New[hf]=s23Old[hf]=s23New[hf]=s34New[hf]=s45New[hf]=null;
+      return;
+    }
+    preheatOld[hf] = oldPre;
+    preheatNew[hf] = oldPre + diffPCB;
+
+    fmOld[hf] = oldPre;                 // Old Pos FM Start = Old Pre Heat
+    fmNew[hf] = fmOld[hf] + diffPCB;
+
+    s12Old[hf] = fmOld[hf] + 2;
+    s12New[hf] = s12Old[hf] + diffPCB;
+
+    const pKey = "p" + (idx+1);         // p1,p2,p3
+    s23Old[hf] = rec[pKey];
+    s23New[hf] = (s23Old[hf]===null) ? null : s23Old[hf] + diffTotal;
+
+    s34New[hf] = (s23New[hf]===null) ? null : s23New[hf] + 0.1;
+    s45New[hf] = (s34New[hf]===null) ? null : s34New[hf] + 0.1;
+  });
+
+  // Resina 43L — Shift 2-3 ajustado (+0.04 en HF1/HF2, +0.05 en HF3, según fórmula original)
+  const resina43 = {};
+  ["hf1","hf2","hf3"].forEach(hf=>{
+    if(s23New[hf]===null){ resina43[hf]=null; return; }
+    resina43[hf] = s23New[hf] + (hf==="hf3" ? 0.05 : 0.04);
+  });
+
+  const rows = [
+    {label:"New Pos Pre Heat",              vals: hfs.map(h=>preheatNew[h])},
+    {label:"New Pos FM Start",               vals: hfs.map(h=>fmNew[h])},
+    {label:"New Molding Speed Shift 1–2",    vals: hfs.map(h=>s12New[h])},
+    {label:"New Molding Speed Shift 2–3",    vals: hfs.map(h=>s23New[h])},
+    {label:"New Molding Speed Shift 3–4",    vals: hfs.map(h=>s34New[h])},
+    {label:"New Molding Speed Shift 4–5",    vals: hfs.map(h=>s45New[h])},
+  ];
+
+  let html = `
+    <div class="lookup-banner">
+      <span class="id">${molde} · ${equipo}</span>
+      <span class="date">actualizado ${fmtDate(rec.fecha)}</span>
+    </div>
+    <table class="results">
+      <thead><tr><th>Posición</th><th>HF1</th><th>HF2</th><th>HF3</th></tr></thead>
+      <tbody>
+  `;
+  rows.forEach((r,i)=>{
+    html += `<tr><td>${r.label}</td>${r.vals.map(v=>`<td class="new">${fmt(v)}</td>`).join("")}</tr>`;
+  });
+  html += `<tr class="resina-row"><td>Resina 43L — Shift 2-3</td>${["hf1","hf2","hf3"].map(hf=>`<td class="resina">${fmt(resina43[hf])}</td>`).join("")}</tr>`;
+  html += `</tbody></table>`;
+  html += `<p class="resina-note">Para equipos con Resina 43L (Temp 165 / CT 6.0 / FM 7.5), usa esta posición en vez del Shift 2-3 normal.</p>`;
+
+  html += `
+    <details class="detail">
+      <summary>Ver detalle del cálculo</summary>
+      <div class="detail-grid">
+        <div><span>PCB histórico → PCB nuevo</span><span>${fmt(rec.pcb,2)} → ${fmt(pcbIn,2)}</span></div>
+        <div><span>Diferencia PCB (Δ)</span><span>${fmt(diffPCB)}</span></div>
+        <div><span>Mold histórico → Mold nuevo</span><span>${fmt(rec.mold,2)} → ${fmt(moldIn,2)}</span></div>
+        <div><span>Total histórico → Total nuevo</span><span>${fmt(totalOld,2)} → ${fmt(totalNew,2)}</span></div>
+        <div><span>Diferencia Total (Δ)</span><span>${fmt(diffTotal)}</span></div>
+      </div>
+    </details>
+  `;
+
+  body.innerHTML = html;
+}
+
+document.getElementById("btn-calc").addEventListener("click", calcularPosicion);
+
+/* ---------------------------------------------------------------------
+   Historial — render
+   --------------------------------------------------------------------- */
+function populateHistFilters(){
+  const eqSel = document.getElementById("hist-filter-equipo");
+  const current = eqSel.value;
+  eqSel.innerHTML = `<option value="">Todos los equipos</option>` +
+    uniqueEquipos().map(e=>`<option value="${e}">${e}</option>`).join("");
+  if(current) eqSel.value = current;
+
+  const moldeSel = document.getElementById("hist-filter-molde");
+  const currentM = moldeSel.value;
+  moldeSel.innerHTML = `<option value="">Todos los moldes</option>` +
+    MOLD_TYPES.map(m=>`<option value="${m}">${m}</option>`).join("");
+  if(currentM) moldeSel.value = currentM;
+}
+
+function renderHistorial(){
+  populateHistFilters();
+  const eqFilter = document.getElementById("hist-filter-equipo").value;
+  const moldeFilter = document.getElementById("hist-filter-molde").value;
+
+  let equipos = uniqueEquipos();
+  if(eqFilter) equipos = equipos.filter(e=>e===eqFilter);
+
+  const list = document.getElementById("hist-list");
+  list.innerHTML = "";
+  let shown = 0;
+
+  equipos.forEach(equipo=>{
+    let recs = DATA.filter(r=>r.equipo===equipo);
+    if(moldeFilter) recs = recs.filter(r=>r.molde===moldeFilter);
+    recs = recs.sort((a,b)=> MOLD_TYPES.indexOf(a.molde)-MOLD_TYPES.indexOf(b.molde));
+    if(recs.length===0) return;
+
+    const group = document.createElement("div");
+    group.className = "equipo-group";
+    group.innerHTML = `<h3>${equipo}</h3>`;
+
+    recs.forEach(rec=>{
+      shown++;
+      const cardId = `mc-${rec.equipo}-${rec.molde}`.replace(/[^a-zA-Z0-9]/g,"_");
+      const card = document.createElement("div");
+      card.className = "mold-card";
+      card.id = cardId;
+
+      const hasData = rec.pcb!==null;
+
+      card.innerHTML = `
+        <div class="top">
+          <span class="molde-name">${rec.molde}</span>
+          <span class="fecha">${fmtDate(rec.fecha)}</span>
+        </div>
+        ${hasData ? `
+        <div class="mini-grid">
+          <div><div class="k">PCB</div><div class="v">${fmt(rec.pcb,2)}</div></div>
+          <div><div class="k">Mold</div><div class="v">${fmt(rec.mold,2)}</div></div>
+          <div><div class="k">HF1</div><div class="v">${fmt(rec.hf1)}</div></div>
+          <div><div class="k">P1</div><div class="v">${fmt(rec.p1)}</div></div>
+          <div><div class="k"></div><div class="v"></div></div>
+          <div><div class="k"></div><div class="v"></div></div>
+          <div><div class="k">HF2/HF3</div><div class="v">${fmt(rec.hf2)} / ${fmt(rec.hf3)}</div></div>
+          <div><div class="k">P2/P3</div><div class="v">${fmt(rec.p2)} / ${fmt(rec.p3)}</div></div>
+        </div>` : `<div class="empty-row">Sin datos registrados</div>`}
+        <div style="text-align:right; margin-top:6px;">
+          <button class="edit-btn" data-cardid="${cardId}">Editar</button>
+        </div>
+        <div class="edit-form" style="display:none;"></div>
+      `;
+      group.appendChild(card);
+    });
+
+    list.appendChild(group);
+  });
+
+  document.getElementById("hist-count").textContent =
+    shown === 0 ? "Sin resultados para este filtro" : `${shown} registro${shown===1?"":"s"}`;
+
+  // wire edit buttons
+  list.querySelectorAll(".edit-btn").forEach(btn=>{
+    btn.addEventListener("click", ()=> toggleEdit(btn.dataset.cardid));
+  });
+}
+
+function toggleEdit(cardId){
+  const card = document.getElementById(cardId);
+  const form = card.querySelector(".edit-form");
+  if(form.style.display === "block"){
+    form.style.display = "none";
+    form.innerHTML = "";
+    return;
+  }
+  // find record by matching card content — decode from id
+  const parts = cardId.replace("mc-","");
+  // find matching record by scanning DATA (safer than parsing id)
+  const moldeName = card.querySelector(".molde-name").textContent;
+  const equipoName = card.closest(".equipo-group").querySelector("h3").textContent;
+  const rec = findRecord(moldeName, equipoName);
+
+  form.innerHTML = `
+    <div class="row2">
+      <div class="field"><label>PCB (mm)</label><input type="number" step="0.01" class="ef-pcb" value="${rec.pcb ?? ''}"></div>
+      <div class="field"><label>Mold (mm)</label><input type="number" step="0.01" class="ef-mold" value="${rec.mold ?? ''}"></div>
+    </div>
+    <div class="three">
+      <div class="field"><label>HF1</label><input type="number" step="0.001" class="ef-hf1" value="${rec.hf1 ?? ''}"></div>
+      <div class="field"><label>HF2</label><input type="number" step="0.001" class="ef-hf2" value="${rec.hf2 ?? ''}"></div>
+      <div class="field"><label>HF3</label><input type="number" step="0.001" class="ef-hf3" value="${rec.hf3 ?? ''}"></div>
+    </div>
+    <div class="three">
+      <div class="field"><label>P1</label><input type="number" step="0.01" class="ef-p1" value="${rec.p1 ?? ''}"></div>
+      <div class="field"><label>P2</label><input type="number" step="0.01" class="ef-p2" value="${rec.p2 ?? ''}"></div>
+      <div class="field"><label>P3</label><input type="number" step="0.01" class="ef-p3" value="${rec.p3 ?? ''}"></div>
+    </div>
+    <div class="edit-actions">
+      <button class="cancel">Cancelar</button>
+      <button class="save">Guardar</button>
+    </div>
+  `;
+  form.style.display = "block";
+
+  form.querySelector(".cancel").addEventListener("click", ()=>{
+    form.style.display = "none";
+    form.innerHTML = "";
+  });
+  form.querySelector(".save").addEventListener("click", async ()=>{
+    const val = sel => {
+      const v = form.querySelector(sel).value;
+      return v === "" ? null : parseFloat(v);
+    };
+    rec.pcb = val(".ef-pcb");
+    rec.mold = val(".ef-mold");
+    rec.hf1 = val(".ef-hf1");
+    rec.hf2 = val(".ef-hf2");
+    rec.hf3 = val(".ef-hf3");
+    rec.p1 = val(".ef-p1");
+    rec.p2 = val(".ef-p2");
+    rec.p3 = val(".ef-p3");
+    rec.fecha = todayISO();
+    await persist();
+    showToast("Guardado");
+    renderHistorial();
+  });
+}
+
+document.getElementById("hist-filter-equipo").addEventListener("change", renderHistorial);
+document.getElementById("hist-filter-molde").addEventListener("change", renderHistorial);
+
+document.getElementById("btn-reset").addEventListener("click", async ()=>{
+  if(!confirm("Esto reemplazará todos tus cambios con los datos originales del archivo Excel. ¿Continuar?")) return;
+  DATA = JSON.parse(JSON.stringify(SEED_DATA));
+  await persist();
+  showToast("Historial restaurado");
+  populateCalcSelects();
+  renderHistorial();
+});
+
+/* ---------------------------------------------------------------------
+   Respaldo — exportar / importar
+   --------------------------------------------------------------------- */
+document.getElementById("btn-export").addEventListener("click", ()=>{
+  const blob = new Blob([JSON.stringify(DATA, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const stamp = todayISO();
+  a.href = url;
+  a.download = `historial-posiciones-${stamp}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast("Copia exportada");
+});
+
+document.getElementById("btn-import").addEventListener("click", ()=>{
+  document.getElementById("file-import").click();
+});
+document.getElementById("file-import").addEventListener("change", (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = async (evt)=>{
+    try{
+      const imported = JSON.parse(evt.target.result);
+      if(!Array.isArray(imported)) throw new Error("Formato inválido");
+      if(!confirm(`Se importarán ${imported.length} registros y se reemplazará el historial actual. ¿Continuar?`)) return;
+      DATA = imported;
+      await persist();
+      showToast("Historial importado");
+      populateCalcSelects();
+      renderHistorial();
+    }catch(err){
+      alert("El archivo no es una copia válida de este historial.");
+    }
+    e.target.value = "";
+  };
+  reader.readAsText(file);
+});
+
+/* ---------------------------------------------------------------------
+   EYELIT MXF-3010 — cálculo de receta
+   --------------------------------------------------------------------- */
+function populateRecetaDatalist(){
+  const dl = document.getElementById("receta-datalist");
+  dl.innerHTML = RDATA.map(r=>`<option value="${r.receta.replace(/"/g,'&quot;')}"></option>`).join("");
+}
+
+function fmtR(v, dec){
+  if(v === null || v === undefined || v === "" || isNaN(v)) return v === "" || v===null || v===undefined ? "—" : v;
+  return Number(v).toFixed(dec===undefined?3:dec);
+}
+
+function calcularEyelit(){
+  const nombre = document.getElementById("in-receta").value.trim();
+  const body = document.getElementById("eyelit-result-body");
+  if(!nombre){
+    body.innerHTML = `<div class="empty-state">Escribe o elige el nombre de una receta.</div>`;
+    return;
+  }
+  const rec = findReceta(nombre);
+  if(!rec){
+    body.innerHTML = `<div class="empty-state"><div class="glyph">⚠</div>No se encontró la receta <strong>${nombre}</strong> en el Recetario Compression.<br>Puedes agregarla en la pestaña Recetario.</div>`;
+    return;
+  }
+
+  const density = rec.densityOfResin;
+  const cureTime = (density === 1.97) ? 120 : 100;
+  const setTemp = (density === 1.97) ? 165 : 178;
+  const compMax = (rec.compressionTime===null||rec.compressionTime===undefined) ? null : rec.compressionTime + 1;
+  const compMin = (compMax===null) ? null : compMax - 2;
+  const fmErrorDetect = (rec.fmPosWaitTime===null||rec.fmPosWaitTime===undefined) ? null : rec.fmPosWaitTime - 1;
+
+  const numeroParte = rec.receta.includes("@") ? rec.receta.split("@")[0].trim() : rec.receta;
+
+  const groups = [
+    { title:"Main Work Data", rows:[
+      ["PPV VISION PROGRAM No.", rec.sort, ""],
+      ["DUMMY RESIN AMOUNT", rec.dummy, "g"],
+      ["AMOUNT RESIN PATTERN VALIDATION", rec.gramosResinaBuena, "g"],
+    ]},
+    { title:"Main Frame Data", rows:[
+      ["FRAME SIZE Z", rec.frameSizeZ, "mm"],
+      ["UNIT COUNT X", rec.unitCountX, ""],
+      ["UNIT COUNT Y", rec.unitCountY, ""],
+      ["PACKAGE SIZE Z", rec.packageSizeZ, "mm"],
+      ["UNIT SIZE X", rec.unitSizeX, "mm"],
+      ["UNIT SIZE Y", rec.unitSizeY, "mm"],
+      ["UNIT PITCH X", rec.unitPitchX, "mm"],
+      ["UNIT PITCH Y", rec.unitPitchY, "mm"],
+      ["UNIT 1ST OFFSET X", rec.unit1stOffsetX, "mm"],
+      ["UNIT 1ST OFFSET Y", rec.unit1stOffsetY, "mm"],
+      ["CHIP COUNT PER UNIT", 1, ""],
+      ["VISION RECIPE NO.", rec.sort, ""],
+      ["VISION DETECTION CHIP COUNT", rec.visionDetectionChipCount, ""],
+      ["VISION NON-DETECT CHIP VOLUME", rec.visionNonDetectChipVolume, "mm³"],
+    ]},
+    { title:"Main Chip Data", rows:[
+      ["CHIP1 SIZE X", rec.chip1SizeX, "mm"], ["CHIP1 SIZE Y", rec.chip1SizeY, "mm"], ["CHIP1 SIZE Z", rec.chip1SizeZ, "mm"],
+      ["CHIP1 OFFSET X", 0.1, "mm"], ["CHIP1 OFFSET Y", 0.1, "mm"],
+      ["CHIP2 SIZE X", rec.chip2SizeX, "mm"], ["CHIP2 SIZE Y", rec.chip2SizeY, "mm"], ["CHIP2 SIZE Z", rec.chip2SizeZ, "mm"],
+      ["CHIP2 OFFSET X", 2, "mm"], ["CHIP2 OFFSET Y", 0.1, "mm"],
+      ["CHIP3 SIZE X", rec.chip3SizeX, "mm"], ["CHIP3 SIZE Y", rec.chip3SizeY, "mm"], ["CHIP3 SIZE Z", rec.chip3SizeZ, "mm"],
+      ["CHIP3 OFFSET X", 0.1, "mm"], ["CHIP3 OFFSET Y", 2, "mm"],
+    ]},
+    { title:"Main Resin Data", rows:[
+      ["TRAY COVER UPPER CLEANING SHOT", 6, ""],
+      ["TRAY COVER LOWER CLEANING COUNT", 5, ""],
+      ["SPRINKLE RESIN SPEED", rec.sprinkleResinSpeed, "sec"],
+      ["DENSITY OF RESIN", density, ""],
+    ]},
+    { title:"Main Mold Data", rows:[
+      ["CAVITY THICKNESS", rec.cavityThickness, "mm"],
+      ["STROKE MOVING CAVITY BLOCK", rec.strokeMovingCavityBlock, "mm"],
+    ]},
+    { title:"Hold Frame HF Condition · P-1/P-2/P-3", rows:[
+      ["CURE TIME", cureTime, "sec"],
+      ["FILM ADSORB 1st ADSORPTION", 1, ""],
+      ["FILM ADSORB 2nd ADSORPTION", 2, ""],
+      ["FILM ADSORB 3rd ADSORPTION", 3, ""],
+    ]},
+    { title:"Hold Frame HF Molding · P-1/P-2/P-3", rows:[
+      ["SET TEMPERATURE", setTemp, "°C"],
+      ["MOLDING SPEED SHIFT 1-2", rec.moldingSpeedShift12, "mm"],
+      ["MOLDING SPEED 2", 0.85, "mm/s"],
+      ["MOLDING SPEED 3", 0.1, "mm/s"],
+      ["MOLDING SPEED 4", 0.05, "mm/s"],
+      ["MOLDING SPEED 5", 0.03, "mm/s"],
+      ["MOLDING PRESSURE 1", rec.moldingPressure1, "ton"],
+      ["MOLDING PRESSURE 2", rec.moldingPressure1, "ton"],
+      ["COMPRESSION TIME (MAX.)", compMax, "sec"],
+      ["COMPRESSION TIME (MIN.)", compMin, "sec"],
+    ]},
+    { title:"Hold Frame HF Clamp · P-1/P-2/P-3", rows:[
+      ["[Pos.] PRE-HEAT", rec.posPreHeat, "mm"],
+      ["[Pos.] FM START", rec.posFmStart, "mm"],
+    ]},
+    { title:"Hold Frame FM", rows:[
+      ["FM Pos. WAIT TIME", rec.fmPosWaitTime, "sec"],
+      ["FM ERROR DETECT FINAL PRESSURE", fmErrorDetect, "sec"],
+      ["FM ERROR DETECT PRESSURE", 2.5, "torr"],
+      ["FM ERROR DETECT TIME (START)", fmErrorDetect, "sec"],
+      ["FM ERROR DETECT TIME (END)", 18, "sec"],
+    ]},
+  ];
+
+  let html = `
+    <div class="lookup-banner">
+      <div>
+        <div class="part-number">${numeroParte}</div>
+        <span class="id">${rec.receta}</span>
+      </div>
+    </div>
+    <table class="results">
+      <thead><tr><th>Parámetro</th><th>Valor</th><th></th></tr></thead>
+      <tbody>
+  `;
+  groups.forEach(g=>{
+    html += `<tr class="subgroup"><td colspan="3">${g.title}</td></tr>`;
+    g.rows.forEach(([label, val, unit])=>{
+      html += `<tr><td>${label}</td><td class="new">${fmtR(val)}</td><td class="unit">${unit}</td></tr>`;
+    });
+  });
+  html += `</tbody></table>`;
+  html += `<p class="hint" style="margin-top:10px;">Los valores marcados como "XX.XXX" son plantilla de receta — no dependen del equipo. Para la posición real (Pre-Heat, FM Start, Molding Speed Shift), calcúlala en la pestaña Posición usando el equipo asignado.</p>`;
+  if(rec.comentario){
+    html += `<p class="hint" style="margin-top:6px;">Comentario: ${rec.comentario}</p>`;
+  }
+  body.innerHTML = html;
+}
+
+document.getElementById("btn-eyelit-buscar").addEventListener("click", calcularEyelit);
+
+/* ---------------------------------------------------------------------
+   RECETARIO COMPRESSION — lista / búsqueda / alta / edición
+   --------------------------------------------------------------------- */
+function buildRecipeFormHTML(rec){
+  const r = rec || {};
+  let html = `
+    <div class="rform-section" style="margin-top:12px; border-top:none; padding-top:0;">
+      <div class="field">
+        <label>Nombre de la receta</label>
+        <input type="text" class="rf-receta" value="${r.receta ? r.receta.replace(/"/g,'&quot;') : ''}">
+      </div>
+    </div>
+  `;
+  FIELD_SECTIONS.forEach(sec=>{
+    html += `<div class="rform-section"><h4>${sec.title}</h4><div class="rform-grid">`;
+    sec.fields.forEach(([key,label,unit,type])=>{
+      const val = r[key] !== undefined && r[key] !== null ? r[key] : "";
+      const inputType = type === "text" ? "text" : "number";
+      const step = type === "text" ? "" : `step="0.001"`;
+      html += `<div class="field"><label>${label}${unit?` (${unit})`:""}</label><input type="${inputType}" ${step} class="rf-field" data-key="${key}" value="${val}"></div>`;
+    });
+    html += `</div></div>`;
+  });
+  return html;
+}
+
+function readRecipeForm(container){
+  const receta = container.querySelector(".rf-receta").value.trim();
+  const rec = { receta };
+  container.querySelectorAll(".rf-field").forEach(inp=>{
+    const key = inp.dataset.key;
+    const isText = FIELD_SECTIONS.flatMap(s=>s.fields).find(f=>f[0]===key)[3] === "text";
+    if(isText){
+      rec[key] = inp.value.trim() === "" ? null : inp.value.trim();
+    }else{
+      rec[key] = inp.value === "" ? null : parseFloat(inp.value);
+    }
+  });
+  return rec;
+}
+
+document.getElementById("btn-add-recipe").addEventListener("click", ()=>{
+  const card = document.getElementById("add-recipe-card");
+  const isOpen = card.classList.contains("open");
+  if(isOpen){
+    card.classList.remove("open");
+    card.innerHTML = "";
+    return;
+  }
+  card.innerHTML = buildRecipeFormHTML(null) + `
+    <div class="edit-actions" style="margin-top:12px;">
+      <button class="cancel">Cancelar</button>
+      <button class="save">Guardar receta nueva</button>
+    </div>
+  `;
+  card.classList.add("open");
+  card.querySelector(".cancel").addEventListener("click", ()=>{
+    card.classList.remove("open");
+    card.innerHTML = "";
+  });
+  card.querySelector(".save").addEventListener("click", async ()=>{
+    const rec = readRecipeForm(card);
+    if(!rec.receta){
+      alert("El nombre de la receta es obligatorio.");
+      return;
+    }
+    if(findReceta(rec.receta)){
+      alert("Ya existe una receta con ese nombre. Edítala en vez de duplicarla.");
+      return;
+    }
+    RDATA.push(rec);
+    await persistRecetario();
+    showToast("Receta agregada");
+    card.classList.remove("open");
+    card.innerHTML = "";
+    populateRecetaDatalist();
+    renderRecetario();
+  });
+});
+
+function renderRecetario(){
+  const term = document.getElementById("recetario-search").value.trim().toLowerCase();
+  const list = document.getElementById("recetario-list");
+  const countEl = document.getElementById("recetario-count");
+  list.innerHTML = "";
+
+  if(term.length < 2){
+    countEl.textContent = `${RDATA.length} recetas · escribe al menos 2 letras para buscar`;
+    return;
+  }
+
+  const matches = RDATA.filter(r=>r.receta.toLowerCase().includes(term));
+  countEl.textContent = matches.length === 0
+    ? "Sin resultados"
+    : `${matches.length} resultado${matches.length===1?"":"s"} de ${RDATA.length}`;
+
+  matches.slice(0,60).forEach(rec=>{
+    const cardId = "rc-" + rec.receta.replace(/[^a-zA-Z0-9]/g,"_");
+    const card = document.createElement("div");
+    card.className = "recipe-card";
+    card.id = cardId;
+    card.innerHTML = `
+      <div class="top">
+        <span class="r-name">${rec.receta}</span>
+        <div class="r-actions">
+          <button class="edit-btn">Editar</button>
+          <button class="del-btn">Borrar</button>
+        </div>
+      </div>
+      <div class="mini-grid">
+        <div><div class="k">Frame Z</div><div class="v">${fmtR(rec.frameSizeZ,2)}</div></div>
+        <div><div class="k">Cavity</div><div class="v">${fmtR(rec.cavityThickness,2)}</div></div>
+        <div><div class="k">Comp. Time</div><div class="v">${fmtR(rec.compressionTime,1)}</div></div>
+        <div><div class="k">Densidad</div><div class="v">${fmtR(rec.densityOfResin,2)}</div></div>
+      </div>
+      <div class="edit-form" style="display:none;"></div>
+    `;
+    list.appendChild(card);
+
+    card.querySelector(".edit-btn").addEventListener("click", ()=>{
+      const form = card.querySelector(".edit-form");
+      if(form.style.display === "block"){
+        form.style.display = "none"; form.innerHTML = "";
+        return;
+      }
+      form.innerHTML = buildRecipeFormHTML(rec) + `
+        <div class="edit-actions">
+          <button class="cancel">Cancelar</button>
+          <button class="save">Guardar</button>
+        </div>
+      `;
+      form.style.display = "block";
+      form.querySelector(".cancel").addEventListener("click", ()=>{
+        form.style.display = "none"; form.innerHTML = "";
+      });
+      form.querySelector(".save").addEventListener("click", async ()=>{
+        const updated = readRecipeForm(form);
+        if(!updated.receta){ alert("El nombre de la receta es obligatorio."); return; }
+        const dupe = RDATA.find(r=>r.receta === updated.receta && r !== rec);
+        if(dupe){ alert("Ya existe otra receta con ese nombre."); return; }
+        Object.assign(rec, updated);
+        await persistRecetario();
+        showToast("Receta actualizada");
+        populateRecetaDatalist();
+        renderRecetario();
+      });
+    });
+
+    card.querySelector(".del-btn").addEventListener("click", async ()=>{
+      if(!confirm(`¿Borrar la receta "${rec.receta}"? Esta acción no se puede deshacer.`)) return;
+      RDATA = RDATA.filter(r=>r.receta !== rec.receta);
+      await persistRecetario();
+      showToast("Receta borrada");
+      populateRecetaDatalist();
+      renderRecetario();
+    });
+  });
+
+  if(matches.length > 60){
+    const note = document.createElement("div");
+    note.className = "empty-hint";
+    note.textContent = `Mostrando 60 de ${matches.length} — afina la búsqueda para ver el resto.`;
+    list.appendChild(note);
+  }
+}
+
+document.getElementById("recetario-search").addEventListener("input", renderRecetario);
+
+document.getElementById("btn-recetario-export").addEventListener("click", ()=>{
+  const blob = new Blob([JSON.stringify(RDATA, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `recetario-compression-${todayISO()}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast("Copia exportada");
+});
+
+document.getElementById("btn-recetario-import").addEventListener("click", ()=>{
+  document.getElementById("recetario-file-import").click();
+});
+document.getElementById("recetario-file-import").addEventListener("change", (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = async (evt)=>{
+    try{
+      const imported = JSON.parse(evt.target.result);
+      if(!Array.isArray(imported)) throw new Error("Formato inválido");
+      if(!confirm(`Se importarán ${imported.length} recetas y se reemplazará el recetario actual. ¿Continuar?`)) return;
+      RDATA = imported;
+      await persistRecetario();
+      showToast("Recetario importado");
+      populateRecetaDatalist();
+      renderRecetario();
+    }catch(err){
+      alert("El archivo no es una copia válida de este recetario.");
+    }
+    e.target.value = "";
+  };
+  reader.readAsText(file);
+});
+
+document.getElementById("btn-recetario-reset").addEventListener("click", async ()=>{
+  if(!confirm("Esto reemplazará todos tus cambios con el recetario original del archivo Excel. ¿Continuar?")) return;
+  RDATA = JSON.parse(JSON.stringify(RECETARIO_SEED));
+  await persistRecetario();
+  showToast("Recetario restaurado");
+  populateRecetaDatalist();
+  renderRecetario();
+});
+
+/* ---------------------------------------------------------------------
+   Init
+   --------------------------------------------------------------------- */
+(async function init(){
+  await loadData();
+  await loadRecetario();
+  populateCalcSelects();
+  populateRecetaDatalist();
+  calcularPosicion();
+})();
+</script>
+</body>
+</html>
