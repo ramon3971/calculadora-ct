@@ -670,7 +670,23 @@
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import {
+  getFirestore, doc, getDoc, setDoc, onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDl2TaGejOqYBPel-YAApgzGqUHDu--Xag",
+  authDomain: "calculadora-ct.firebaseapp.com",
+  projectId: "calculadora-ct",
+  storageBucket: "calculadora-ct.firebasestorage.app",
+  messagingSenderId: "344216894074",
+  appId: "1:344216894074:web:311ff9bf3bc1bb705f59c3"
+};
+const fbApp = initializeApp(firebaseConfig);
+const db = getFirestore(fbApp);
+const FS_COLLECTION = "calculadora_ct";
 /* ======================================================================
    SEED DATA — extraído de Calcucadora_CT.xlsx, hoja "Historial de Posiciones"
    ====================================================================== */
@@ -755,11 +771,22 @@ async function loadRecetario(){
   const fetched = await fetchJSON("./recetario.json");
   if(fetched) RECETARIO_SEED = fetched;
 
-  let local = [];
+  let cloud = null;
   try{
-    const raw = localStorage.getItem(RECETARIO_STORAGE_KEY);
-    if(raw) local = JSON.parse(raw);
-  }catch(e){ /* vacío */ }
+    const snap = await getDoc(doc(db, FS_COLLECTION, "recetario"));
+    if(snap.exists()) cloud = snap.data().records;
+  }catch(e){ console.warn("Firestore no disponible, usando copia local (recetario)", e); }
+
+  let local = [];
+  if(cloud){
+    local = cloud;
+    try{ localStorage.setItem(RECETARIO_STORAGE_KEY, JSON.stringify(local)); }catch(e){}
+  }else{
+    try{
+      const raw = localStorage.getItem(RECETARIO_STORAGE_KEY);
+      if(raw) local = JSON.parse(raw);
+    }catch(e){ /* vacío */ }
+  }
 
   if(local.length === 0){
     RDATA = fetched ? JSON.parse(JSON.stringify(fetched)) : [];
@@ -772,13 +799,33 @@ async function loadRecetario(){
       showToast(`${added} receta(s) nueva(s) agregada(s) desde recetario.json`);
     }
   }
+
+  try{
+    onSnapshot(doc(db, FS_COLLECTION, "recetario"), (snap)=>{
+      if(!snap.exists()) return;
+      const remote = snap.data().records;
+      if(JSON.stringify(remote) !== JSON.stringify(RDATA)){
+        RDATA = remote;
+        try{ localStorage.setItem(RECETARIO_STORAGE_KEY, JSON.stringify(RDATA)); }catch(e){}
+        try{
+          populateRecetaDatalist();
+          if(document.getElementById("recetario-view").classList.contains("active")) renderRecetario();
+        }catch(e){ console.error(e); }
+      }
+    });
+  }catch(e){ console.warn("No se pudo activar sincronización en vivo (recetario)", e); }
 }
 async function persistRecetario(){
   try{
     localStorage.setItem(RECETARIO_STORAGE_KEY, JSON.stringify(RDATA));
   }catch(e){
-    console.error("No se pudo guardar recetario", e);
-    showToast("No se pudo guardar el recetario");
+    console.error("No se pudo guardar recetario localmente", e);
+  }
+  try{
+    await setDoc(doc(db, FS_COLLECTION, "recetario"), {records: RDATA, updatedAt: Date.now()});
+  }catch(e){
+    console.error("No se pudo guardar recetario en la nube", e);
+    showToast("Guardado solo en este dispositivo (sin conexión a la nube)");
   }
 }
 function findReceta(name){
@@ -788,17 +835,30 @@ function findReceta(name){
 let DATA = [];
 
 /* ---------------------------------------------------------------------
-   Persistence
+   Persistence — Firestore (nube, sincroniza entre dispositivos) con
+   respaldo automático en localStorage (funciona sin internet)
    --------------------------------------------------------------------- */
 async function loadData(){
   const fetched = await fetchJSON("./historial.json");
   if(fetched) SEED_DATA = fetched;
 
-  let local = [];
+  // 1. Intentar leer la nube primero
+  let cloud = null;
   try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw) local = JSON.parse(raw);
-  }catch(e){ /* localStorage no disponible o vacío */ }
+    const snap = await getDoc(doc(db, FS_COLLECTION, "historial"));
+    if(snap.exists()) cloud = snap.data().records;
+  }catch(e){ console.warn("Firestore no disponible, usando copia local", e); }
+
+  let local = [];
+  if(cloud){
+    local = cloud;
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(local)); }catch(e){}
+  }else{
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(raw) local = JSON.parse(raw);
+    }catch(e){ /* localStorage no disponible o vacío */ }
+  }
 
   if(local.length === 0){
     DATA = fetched ? JSON.parse(JSON.stringify(fetched)) : [];
@@ -811,14 +871,35 @@ async function loadData(){
       showToast(`${added} registro(s) nuevo(s) agregado(s) desde historial.json`);
     }
   }
+
+  // 2. Escuchar cambios en vivo (otros dispositivos editando la misma nube)
+  try{
+    onSnapshot(doc(db, FS_COLLECTION, "historial"), (snap)=>{
+      if(!snap.exists()) return;
+      const remote = snap.data().records;
+      if(JSON.stringify(remote) !== JSON.stringify(DATA)){
+        DATA = remote;
+        try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA)); }catch(e){}
+        try{
+          populateCalcSelects();
+          if(document.getElementById("hist-view").classList.contains("active")) renderHistorial();
+        }catch(e){ console.error(e); }
+      }
+    });
+  }catch(e){ console.warn("No se pudo activar sincronización en vivo (historial)", e); }
 }
 
 async function persist(){
   try{
     localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
   }catch(e){
-    console.error("No se pudo guardar", e);
-    showToast("No se pudo guardar el cambio (memoria del navegador llena o bloqueada)");
+    console.error("No se pudo guardar localmente", e);
+  }
+  try{
+    await setDoc(doc(db, FS_COLLECTION, "historial"), {records: DATA, updatedAt: Date.now()});
+  }catch(e){
+    console.error("No se pudo guardar en la nube", e);
+    showToast("Guardado solo en este dispositivo (sin conexión a la nube)");
   }
 }
 
