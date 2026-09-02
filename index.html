@@ -82,12 +82,16 @@
   .tabs{
     display:flex;
     gap:4px;
+    overflow-x:auto;
+    scrollbar-width:none;
   }
+  .tabs::-webkit-scrollbar{display:none;}
   .tab{
-    flex:1;
+    flex:none;
+    min-width:78px;
     text-align:center;
-    padding:11px 3px;
-    font-size:11.5px;
+    padding:11px 10px;
+    font-size:12px;
     font-weight:600;
     letter-spacing:0.01em;
     color:#9AA0AB;
@@ -96,6 +100,7 @@
     border-bottom:3px solid transparent;
     cursor:pointer;
     font-family:inherit;
+    white-space:nowrap;
   }
   .tab.active{
     color:#fff;
@@ -552,6 +557,7 @@
     <button class="tab" data-view="hist-view">Historial</button>
     <button class="tab" data-view="eyelit-view">Eyelit</button>
     <button class="tab" data-view="recetario-view">Recetario</button>
+    <button class="tab" data-view="extras-view">Extras</button>
   </div>
 </header>
 
@@ -664,6 +670,79 @@
     <div class="reset-bar">
       <button id="btn-recetario-reset">Restaurar recetario original de fábrica</button>
     </div>
+  </section>
+
+  <!-- ===================== EXTRAS ===================== -->
+  <section id="extras-view" class="view">
+
+    <div class="card">
+      <h2>Calculadora Dummy (Resina)</h2>
+      <div class="field">
+        <label for="ex-dummy-resina">Resina</label>
+        <select id="ex-dummy-resina"></select>
+      </div>
+      <div class="field">
+        <label for="ex-dummy-modelo">Molde deseado (mm)</label>
+        <input type="number" step="0.01" id="ex-dummy-modelo" value="0.44">
+      </div>
+      <button class="primary" id="btn-ex-dummy">Calcular Dummy</button>
+      <div id="ex-dummy-result"></div>
+    </div>
+
+    <div class="card">
+      <h2>Calculadora de Compression Time</h2>
+      <div class="row2">
+        <div class="field">
+          <label for="ex-ct-obtenido">CT obtenido (seg)</label>
+          <input type="number" step="0.01" id="ex-ct-obtenido" value="5.1">
+        </div>
+        <div class="field">
+          <label for="ex-ct-deseado">CT deseado (seg)</label>
+          <input type="number" step="0.01" id="ex-ct-deseado" value="6.2">
+        </div>
+      </div>
+      <div class="field">
+        <label for="ex-ct-shift23">Molding Speed Shift 2-3 actual (mm)</label>
+        <input type="number" step="0.001" id="ex-ct-shift23" value="100.37">
+      </div>
+      <button class="primary" id="btn-ex-ct">Calcular nueva posición</button>
+      <div id="ex-ct-result"></div>
+    </div>
+
+    <div class="card">
+      <h2>Calculadora Strip Map (Resina Xout)</h2>
+      <div class="field">
+        <label for="ex-strip-resina">Resina</label>
+        <select id="ex-strip-resina"></select>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="ex-strip-thickness">Mold Cavity Thickness (mm)</label>
+          <input type="number" step="0.01" id="ex-strip-thickness" value="0.45">
+        </div>
+        <div class="field">
+          <label for="ex-strip-buena">Buena (gr.)</label>
+          <input type="number" step="0.01" id="ex-strip-buena" value="7.2">
+        </div>
+      </div>
+      <div class="field">
+        <label for="ex-strip-paquetes">Cantidad de paquetes</label>
+        <input type="number" step="1" id="ex-strip-paquetes" value="1178">
+      </div>
+      <button class="primary" id="btn-ex-strip">Calcular Resina Xout</button>
+      <div id="ex-strip-result"></div>
+
+      <div class="rform-section">
+        <h4>Tiras Parciales</h4>
+        <div class="field">
+          <label for="ex-tiras-pz">Pz Xout (piezas de la tira parcial)</label>
+          <input type="number" step="1" id="ex-tiras-pz" value="589">
+        </div>
+        <button class="primary" id="btn-ex-tiras" style="background:var(--teal);">Calcular tira parcial</button>
+        <div id="ex-tiras-result"></div>
+      </div>
+    </div>
+
   </section>
 
 </main>
@@ -1637,6 +1716,119 @@ document.getElementById("btn-recetario-reset").addEventListener("click", async (
 });
 
 /* ---------------------------------------------------------------------
+   EXTRAS — Dummy / Compression Time / Strip Map / Tiras Parciales
+   (calculadoras independientes, sin base de datos)
+   --------------------------------------------------------------------- */
+const RESIN_DENSITY = {
+  "37L":1.99, "38L":1.99, "39L":1.99, "42L":1.99,
+  "31L":2.03, "40L":2.03, "41L":2.03,
+  "43L":1.97
+};
+const RESIN_LIST = Object.keys(RESIN_DENSITY);
+
+function populateExtrasSelects(){
+  const opts = RESIN_LIST.map(r=>`<option value="${r}">${r}</option>`).join("");
+  const dummySel = document.getElementById("ex-dummy-resina");
+  const stripSel = document.getElementById("ex-strip-resina");
+  dummySel.innerHTML = opts;
+  stripSel.innerHTML = opts;
+  dummySel.value = "41L";
+  stripSel.value = "43L";
+}
+
+function calcDummy(){
+  const resina = document.getElementById("ex-dummy-resina").value;
+  const modelo = parseFloat(document.getElementById("ex-dummy-modelo").value);
+  const density = RESIN_DENSITY[resina];
+  const resultEl = document.getElementById("ex-dummy-result");
+  if(!density || isNaN(modelo)){
+    resultEl.innerHTML = `<div class="empty-state">Verifica los datos ingresados.</div>`;
+    return;
+  }
+  const gr = (180.5 * 52.5 * modelo) / ((1/density) * 1000);
+  resultEl.innerHTML = `
+    <div class="lookup-banner" style="margin-top:12px;">
+      <span class="id">${gr.toFixed(2)} gr Dummy</span>
+      <span class="date">Resina ${resina} · densidad ${density}</span>
+    </div>`;
+}
+
+function calcCT(){
+  const obtenido = parseFloat(document.getElementById("ex-ct-obtenido").value);
+  const deseado = parseFloat(document.getElementById("ex-ct-deseado").value);
+  const shift23 = parseFloat(document.getElementById("ex-ct-shift23").value);
+  const resultEl = document.getElementById("ex-ct-result");
+  if(isNaN(obtenido) || isNaN(deseado) || isNaN(shift23)){
+    resultEl.innerHTML = `<div class="empty-state">Verifica los datos ingresados.</div>`;
+    return;
+  }
+  const newShift23 = shift23 + ((obtenido - deseado) * (0.01/0.3));
+  const newShift34 = newShift23 + 0.1;
+  const newShift45 = newShift34 + 0.1;
+  resultEl.innerHTML = `
+    <table class="results" style="margin-top:12px;">
+      <thead><tr><th>Posición</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>New Molding Speed Shift 2-3</td><td class="new">${newShift23.toFixed(3)}</td></tr>
+        <tr><td>New Molding Speed Shift 3-4</td><td class="new">${newShift34.toFixed(3)}</td></tr>
+        <tr><td>New Molding Speed Shift 4-5</td><td class="new">${newShift45.toFixed(3)}</td></tr>
+      </tbody>
+    </table>`;
+}
+
+let lastResinaXout = null;
+let lastBuena = null;
+
+function calcStripMap(){
+  const resina = document.getElementById("ex-strip-resina").value;
+  const thickness = parseFloat(document.getElementById("ex-strip-thickness").value);
+  const buena = parseFloat(document.getElementById("ex-strip-buena").value);
+  const paquetes = parseFloat(document.getElementById("ex-strip-paquetes").value);
+  const density = RESIN_DENSITY[resina];
+  const resultEl = document.getElementById("ex-strip-result");
+  if(!density || isNaN(thickness) || isNaN(buena) || isNaN(paquetes) || paquetes === 0){
+    resultEl.innerHTML = `<div class="empty-state">Verifica los datos ingresados.</div>`;
+    lastResinaXout = null;
+    return;
+  }
+  const xout = ( ((180.5 * 52.5 * thickness) / ((1/density) * 1000)) - buena ) / paquetes;
+  lastResinaXout = xout;
+  lastBuena = buena;
+  resultEl.innerHTML = `
+    <div class="lookup-banner" style="margin-top:12px;">
+      <span class="id">Resina Xout: ${xout.toFixed(4)} gr</span>
+      <span class="date">Resina ${resina}</span>
+    </div>`;
+}
+
+function calcTiras(){
+  const pz = parseFloat(document.getElementById("ex-tiras-pz").value);
+  const resultEl = document.getElementById("ex-tiras-result");
+  if(lastResinaXout === null){
+    resultEl.innerHTML = `<div class="empty-state">Primero calcula la Resina Xout arriba.</div>`;
+    return;
+  }
+  if(isNaN(pz)){
+    resultEl.innerHTML = `<div class="empty-state">Ingresa la cantidad de piezas (Pz Xout).</div>`;
+    return;
+  }
+  const grXout = lastResinaXout * pz;
+  const parcial = lastBuena + grXout;
+  resultEl.innerHTML = `
+    <table class="results" style="margin-top:12px;">
+      <tbody>
+        <tr><td>Gr Xout</td><td class="new">${grXout.toFixed(2)}</td></tr>
+        <tr><td>Parcial (total)</td><td class="new">${parcial.toFixed(2)}</td></tr>
+      </tbody>
+    </table>`;
+}
+
+document.getElementById("btn-ex-dummy").addEventListener("click", calcDummy);
+document.getElementById("btn-ex-ct").addEventListener("click", calcCT);
+document.getElementById("btn-ex-strip").addEventListener("click", calcStripMap);
+document.getElementById("btn-ex-tiras").addEventListener("click", calcTiras);
+
+/* ---------------------------------------------------------------------
    Init
    --------------------------------------------------------------------- */
 (async function init(){
@@ -1645,6 +1837,7 @@ document.getElementById("btn-recetario-reset").addEventListener("click", async (
   try{
     populateCalcSelects();
     populateRecetaDatalist();
+    populateExtrasSelects();
     calcularPosicion();
   }catch(err){
     console.error("Error al pintar la interfaz inicial:", err);
