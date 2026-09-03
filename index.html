@@ -33,6 +33,30 @@
     --muted:#7A7E86;
     --radius:14px;
   }
+  body.dark-mode{
+    --ink:#EDEEF0;
+    --graphite:#121417;
+    --graphite-2:#1B1E23;
+    --paper:#15171B;
+    --card:#1E2126;
+    --line:#33373E;
+    --amber:#E8A33D;
+    --amber-dark:#F0B85C;
+    --amber-ink:#F5D9A6;
+    --teal:#5FB3B0;
+    --teal-light:#1E3232;
+    --red:#E07A5F;
+    --purple:#B18CD9;
+    --purple-ink:#D9C7EF;
+    --muted:#9198A3;
+  }
+  body.dark-mode input, body.dark-mode select{
+    background:#2A2410 !important;
+    color:var(--amber-ink) !important;
+    border-color:#5A481C !important;
+  }
+  body.dark-mode .rform-grid input[type=text]{ color:var(--ink) !important; }
+  body.dark-mode .search-box{ background:var(--card) !important; color:var(--ink) !important; }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
   body{
@@ -57,7 +81,7 @@
   }
   .brand{
     display:flex;
-    align-items:baseline;
+    align-items:center;
     gap:8px;
     margin-bottom:14px;
   }
@@ -542,6 +566,100 @@
     color:var(--muted);
     font-size:13px;
   }
+
+  /* ---- Header extras: sync badge, theme toggle ---- */
+  .brand{ position:relative; }
+  .header-right{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .sync-badge{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:20px;
+    padding:4px 10px 4px 8px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    color:#C7CBD3;
+    cursor:default;
+  }
+  .sync-badge .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--muted);
+    flex:none;
+  }
+  .sync-badge.online .dot{ background:#4CAF7D; }
+  .sync-badge.offline .dot{ background:var(--red); }
+  .theme-toggle{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:50%;
+    width:28px; height:28px;
+    font-size:14px;
+    line-height:1;
+    cursor:pointer;
+    color:#fff;
+  }
+
+  /* ---- Backup reminder banner ---- */
+  .backup-banner{
+    display:none;
+    background:var(--teal-light);
+    border:1px solid var(--teal);
+    border-radius:10px;
+    padding:10px 12px;
+    margin:0 0 14px 0;
+    font-size:12.5px;
+    color:var(--ink);
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .backup-banner.show{ display:flex; }
+  .backup-banner button{
+    flex:none;
+    border:none;
+    background:var(--teal);
+    color:#fff;
+    font-size:11.5px;
+    font-weight:600;
+    padding:6px 10px;
+    border-radius:7px;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .backup-banner .dismiss{
+    background:none;
+    color:var(--muted);
+    padding:4px;
+  }
+
+  /* ---- Autor / fecha de edición ---- */
+  .edited-by{
+    font-size:10.5px;
+    color:var(--muted);
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  /* ---- Compartir receta ---- */
+  .share-btn{
+    width:100%;
+    margin-top:10px;
+    padding:11px;
+    border:1.5px solid var(--teal);
+    background:none;
+    color:var(--teal);
+    border-radius:9px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    font-family:inherit;
+  }
 </style>
 </head>
 <body>
@@ -551,6 +669,12 @@
     <div class="mark"></div>
     <h1>Calculadora de Posición</h1>
     <span>CT · Towa</span>
+    <div class="header-right">
+      <button id="sync-badge" class="sync-badge" title="Estado de sincronización">
+        <span class="dot"></span><span class="sync-text">Conectando…</span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">🌙</button>
+    </div>
   </div>
   <div class="tabs">
     <button class="tab active" data-view="calc-view">Posición</button>
@@ -562,6 +686,13 @@
 </header>
 
 <main>
+
+<div class="backup-banner" id="backup-banner">
+  <span>📦 Ha pasado un rato desde tu último respaldo. Considera exportar una copia .json.</span>
+  <div style="display:flex; gap:6px; flex:none;">
+    <button id="backup-banner-dismiss" class="dismiss">Ahora no</button>
+  </div>
+</div>
 
   <!-- ===================== CALCULADORA ===================== -->
   <section id="calc-view" class="view active">
@@ -766,6 +897,101 @@ const firebaseConfig = {
 const fbApp = initializeApp(firebaseConfig);
 const db = getFirestore(fbApp);
 const FS_COLLECTION = "calculadora_ct";
+
+/* ---------------------------------------------------------------------
+   Modo oscuro
+   --------------------------------------------------------------------- */
+const THEME_KEY = "theme-preference";
+function applyTheme(theme){
+  document.body.classList.toggle("dark-mode", theme === "dark");
+  const btn = document.getElementById("theme-toggle");
+  if(btn) btn.textContent = theme === "dark" ? "☀️" : "🌙";
+}
+function initTheme(){
+  let theme = "light";
+  try{ theme = localStorage.getItem(THEME_KEY) || "light"; }catch(e){}
+  applyTheme(theme);
+}
+document.getElementById("theme-toggle").addEventListener("click", ()=>{
+  const isDark = document.body.classList.contains("dark-mode");
+  const next = isDark ? "light" : "dark";
+  applyTheme(next);
+  try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
+});
+initTheme();
+
+/* ---------------------------------------------------------------------
+   Indicador de sincronización
+   --------------------------------------------------------------------- */
+function setSyncBadge(state){
+  const badge = document.getElementById("sync-badge");
+  const text = badge.querySelector(".sync-text");
+  badge.classList.remove("online","offline");
+  if(state === "online"){
+    badge.classList.add("online");
+    text.textContent = "En línea";
+  }else if(state === "offline"){
+    badge.classList.add("offline");
+    text.textContent = "Sin conexión";
+  }else{
+    text.textContent = "Conectando…";
+  }
+}
+function updateSyncFromNavigator(){
+  setSyncBadge(navigator.onLine ? "online" : "offline");
+}
+window.addEventListener("online", updateSyncFromNavigator);
+window.addEventListener("offline", updateSyncFromNavigator);
+updateSyncFromNavigator();
+
+/* ---------------------------------------------------------------------
+   Nombre de usuario (para historial de cambios) — Opción B:
+   autoreportado por dispositivo, sin verificación real.
+   --------------------------------------------------------------------- */
+const USER_NAME_KEY = "user_display_name";
+function getUserName(){
+  let name = null;
+  try{ name = localStorage.getItem(USER_NAME_KEY); }catch(e){}
+  if(!name){
+    name = (window.prompt("¿Cómo te llamas? (para identificar tus cambios en el historial)") || "").trim();
+    if(!name) name = "Anónimo";
+    try{ localStorage.setItem(USER_NAME_KEY, name); }catch(e){}
+  }
+  return name;
+}
+function stampEdit(rec){
+  rec.editedBy = getUserName();
+  rec.editedAt = new Date().toISOString();
+  return rec;
+}
+function fmtEditedBy(rec){
+  if(!rec || !rec.editedBy) return "";
+  const d = rec.editedAt ? new Date(rec.editedAt) : null;
+  const dateStr = d ? d.toLocaleDateString('es-MX') + " " + d.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'}) : "";
+  return `editado por ${rec.editedBy}${dateStr ? " · " + dateStr : ""}`;
+}
+
+/* ---------------------------------------------------------------------
+   Recordatorio de respaldo automático
+   --------------------------------------------------------------------- */
+const LAST_BACKUP_KEY = "last_backup_at";
+const BACKUP_REMINDER_DAYS = 30;
+function markBackupDone(){
+  try{ localStorage.setItem(LAST_BACKUP_KEY, Date.now().toString()); }catch(e){}
+  checkBackupReminder();
+}
+function checkBackupReminder(){
+  const banner = document.getElementById("backup-banner");
+  if(!banner) return;
+  let last = null;
+  try{ last = parseInt(localStorage.getItem(LAST_BACKUP_KEY) || "0", 10); }catch(e){}
+  const daysSince = last ? (Date.now() - last) / (1000*60*60*24) : Infinity;
+  if(daysSince >= BACKUP_REMINDER_DAYS){
+    banner.classList.add("show");
+  }else{
+    banner.classList.remove("show");
+  }
+}
 /* ======================================================================
    SEED DATA — extraído de Calcucadora_CT.xlsx, hoja "Historial de Posiciones"
    ====================================================================== */
@@ -854,7 +1080,11 @@ async function loadRecetario(){
   try{
     const snap = await getDoc(doc(db, FS_COLLECTION, "recetario"));
     if(snap.exists()) cloud = snap.data().records;
-  }catch(e){ console.warn("Firestore no disponible, usando copia local (recetario)", e); }
+    setSyncBadge("online");
+  }catch(e){
+    console.warn("Firestore no disponible, usando copia local (recetario)", e);
+    setSyncBadge("offline");
+  }
 
   let local = [];
   if(cloud){
@@ -902,9 +1132,11 @@ async function persistRecetario(){
   }
   try{
     await setDoc(doc(db, FS_COLLECTION, "recetario"), {records: RDATA, updatedAt: Date.now()});
+    setSyncBadge("online");
   }catch(e){
     console.error("No se pudo guardar recetario en la nube", e);
     showToast("Guardado solo en este dispositivo (sin conexión a la nube)");
+    setSyncBadge("offline");
   }
 }
 function findReceta(name){
@@ -926,7 +1158,11 @@ async function loadData(){
   try{
     const snap = await getDoc(doc(db, FS_COLLECTION, "historial"));
     if(snap.exists()) cloud = snap.data().records;
-  }catch(e){ console.warn("Firestore no disponible, usando copia local", e); }
+    setSyncBadge("online");
+  }catch(e){
+    console.warn("Firestore no disponible, usando copia local", e);
+    setSyncBadge("offline");
+  }
 
   let local = [];
   if(cloud){
@@ -976,9 +1212,11 @@ async function persist(){
   }
   try{
     await setDoc(doc(db, FS_COLLECTION, "historial"), {records: DATA, updatedAt: Date.now()});
+    setSyncBadge("online");
   }catch(e){
     console.error("No se pudo guardar en la nube", e);
     showToast("Guardado solo en este dispositivo (sin conexión a la nube)");
+    setSyncBadge("offline");
   }
 }
 
@@ -1222,6 +1460,7 @@ function renderHistorial(){
           <div><div class="k">HF2/HF3</div><div class="v">${fmt(rec.hf2)} / ${fmt(rec.hf3)}</div></div>
           <div><div class="k">P2/P3</div><div class="v">${fmt(rec.p2)} / ${fmt(rec.p3)}</div></div>
         </div>` : `<div class="empty-row">Sin datos registrados</div>`}
+        ${rec.editedBy ? `<div class="edited-by">${fmtEditedBy(rec)}</div>` : ""}
         <div style="text-align:right; margin-top:6px;">
           <button class="edit-btn" data-cardid="${cardId}">Editar</button>
         </div>
@@ -1297,6 +1536,7 @@ function toggleEdit(cardId){
     rec.p2 = val(".ef-p2");
     rec.p3 = val(".ef-p3");
     rec.fecha = todayISO();
+    stampEdit(rec);
     await persist();
     showToast("Guardado");
     renderHistorial();
@@ -1330,6 +1570,7 @@ document.getElementById("btn-export").addEventListener("click", ()=>{
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
   showToast("Copia exportada");
+  markBackupDone();
 });
 
 document.getElementById("btn-import").addEventListener("click", ()=>{
@@ -1374,6 +1615,8 @@ function fmtR(v, dec){
   if(v === null || v === undefined || v === "" || isNaN(v)) return v === "" || v===null || v===undefined ? "—" : v;
   return Number(v).toFixed(dec===undefined?3:dec);
 }
+
+let lastEyelitShareText = null;
 
 function calcularEyelit(){
   const nombre = document.getElementById("in-receta").value.trim();
@@ -1490,8 +1733,43 @@ function calcularEyelit(){
   if(rec.comentario){
     html += `<p class="hint" style="margin-top:6px;">Comentario: ${rec.comentario}</p>`;
   }
+  html += `<button class="share-btn" id="btn-eyelit-share">📤 Compartir esta ficha</button>`;
   body.innerHTML = html;
+
+  // Preparar texto plano para compartir/copiar
+  let shareText = `MXF-3010 Eyelit Rev.8\n${numeroParte}\n${rec.receta}\n\n`;
+  groups.forEach(g=>{
+    shareText += `— ${g.title} —\n`;
+    g.rows.forEach(([label, val, unit])=>{
+      shareText += `${label}: ${fmtR(val)}${unit ? " " + unit : ""}\n`;
+    });
+    shareText += `\n`;
+  });
+  shareText += `Nota: los valores "XX.XXX" son plantilla de receta; la posición real se calcula por equipo en la pestaña Posición.`;
+  if(rec.comentario) shareText += `\nComentario: ${rec.comentario}`;
+  lastEyelitShareText = shareText;
+
+  document.getElementById("btn-eyelit-share").addEventListener("click", shareEyelitText);
 }
+
+async function shareEyelitText(){
+  if(!lastEyelitShareText) return;
+  if(navigator.share){
+    try{
+      await navigator.share({title: "Ficha MXF-3010 Eyelit", text: lastEyelitShareText});
+      return;
+    }catch(e){
+      if(e && e.name === "AbortError") return; // el usuario canceló el share
+    }
+  }
+  try{
+    await navigator.clipboard.writeText(lastEyelitShareText);
+    showToast("Ficha copiada al portapapeles");
+  }catch(e){
+    showToast("No se pudo compartir ni copiar automáticamente");
+  }
+}
+
 
 document.getElementById("btn-eyelit-buscar").addEventListener("click", calcularEyelit);
 
@@ -1565,7 +1843,7 @@ document.getElementById("btn-add-recipe").addEventListener("click", ()=>{
       alert("Ya existe una receta con ese nombre. Edítala en vez de duplicarla.");
       return;
     }
-    RDATA.push(rec);
+    RDATA.push(stampEdit(rec));
     await persistRecetario();
     showToast("Receta agregada");
     card.classList.remove("open");
@@ -1610,6 +1888,7 @@ function renderRecetario(){
         <div><div class="k">Comp. Time</div><div class="v">${fmtR(rec.compressionTime,1)}</div></div>
         <div><div class="k">Densidad</div><div class="v">${fmtR(rec.densityOfResin,2)}</div></div>
       </div>
+      ${rec.editedBy ? `<div class="edited-by">${fmtEditedBy(rec)}</div>` : ""}
       <div class="edit-form" style="display:none;"></div>
     `;
     list.appendChild(card);
@@ -1636,6 +1915,7 @@ function renderRecetario(){
         const dupe = RDATA.find(r=>r.receta === updated.receta && r !== rec);
         if(dupe){ alert("Ya existe otra receta con ese nombre."); return; }
         Object.assign(rec, updated);
+        stampEdit(rec);
         await persistRecetario();
         showToast("Receta actualizada");
         populateRecetaDatalist();
@@ -1674,6 +1954,7 @@ document.getElementById("btn-recetario-export").addEventListener("click", ()=>{
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
   showToast("Copia exportada");
+  markBackupDone();
 });
 
 document.getElementById("btn-recetario-import").addEventListener("click", ()=>{
@@ -1828,6 +2109,10 @@ document.getElementById("btn-ex-ct").addEventListener("click", calcCT);
 document.getElementById("btn-ex-strip").addEventListener("click", calcStripMap);
 document.getElementById("btn-ex-tiras").addEventListener("click", calcTiras);
 
+document.getElementById("backup-banner-dismiss").addEventListener("click", ()=>{
+  document.getElementById("backup-banner").classList.remove("show");
+});
+
 /* ---------------------------------------------------------------------
    Init
    --------------------------------------------------------------------- */
@@ -1839,6 +2124,7 @@ document.getElementById("btn-ex-tiras").addEventListener("click", calcTiras);
     populateRecetaDatalist();
     populateExtrasSelects();
     calcularPosicion();
+    checkBackupReminder();
   }catch(err){
     console.error("Error al pintar la interfaz inicial:", err);
   }
