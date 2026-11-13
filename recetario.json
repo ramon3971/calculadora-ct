@@ -15101,7 +15101,7 @@
     "cureTime": 100
   },
   {
-    "receta": "53934-21A@43T42LP03",
+    "receta": "53934-21A@43T42LP03C",
     "sort": 388,
     "comentario": null,
     "frameSizeZ": 0.18,
@@ -17131,7 +17131,7 @@
     "cureTime": 120
   },
   {
-    "receta": "58540-21@43T43LP02",
+    "receta": "58540-21@43T43LP02E",
     "sort": 440,
     "comentario": "Resina 43L / Temp 165 / CT 6.0 / FM 7.5 / Pre-Heat And FM Start 99.XXX -2.8",
     "frameSizeZ": 0.18,
@@ -17209,7 +17209,7 @@
     "cureTime": 100
   },
   {
-    "receta": "53970-20@43T42LP04",
+    "receta": "53970-20@43T42LP04C",
     "sort": 442,
     "comentario": null,
     "frameSizeZ": 0.18,
@@ -17287,7 +17287,7 @@
     "cureTime": 100
   },
   {
-    "receta": "53976-20@43T42LP04",
+    "receta": "53976-20@43T42LP04C",
     "sort": 444,
     "comentario": null,
     "frameSizeZ": 0.18,
@@ -17755,7 +17755,7 @@
     "cureTime": 100
   },
   {
-    "receta": "53970-20A@43T42LP04",
+    "receta": "53970-20A@43T42LP04C",
     "sort": 456,
     "comentario": null,
     "frameSizeZ": 0.18,
@@ -18067,7 +18067,7 @@
     "cureTime": 100
   },
   {
-    "receta": "53976-20A@43T42LP04",
+    "receta": "53976-20A@43T42LP04C",
     "sort": 464,
     "comentario": null,
     "frameSizeZ": 0.18,
@@ -19243,7 +19243,7 @@
     "editedAt": "2026-10-21T04:14:27.223Z"
   },
   {
-    "receta": "58548-21@43T43LP02",
+    "receta": "58548-21@43T43LP02E",
     "sort": 494,
     "comentario": null,
     "frameSizeZ": 0.18,
@@ -19323,7 +19323,7 @@
     "editedAt": "2026-10-23T06:53:35.157Z"
   },
   {
-    "receta": "58549-21@43T43LP02",
+    "receta": "58549-21@43T43LP02E",
     "sort": 496,
     "comentario": null,
     "frameSizeZ": 0.18,
